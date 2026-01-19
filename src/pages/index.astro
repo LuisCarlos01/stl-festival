@@ -1,0 +1,49 @@
+---
+// Página principal - STL Festival
+// Stack: Astro + React Islands + Framer Motion
+import Preloader from '../components/Preloader';
+---
+
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="STL Festival - Site institucional" />
+    <title>STL Festival</title>
+  </head>
+  <body>
+    <!-- Preloader como React Island -->
+    <!-- client:load = carrega imediatamente (preloader é crítico) -->
+    <Preloader 
+      client:load
+      logoSrc="/logo.png"
+      phraseTop="Bem-vindo ao STL Festival"
+      phraseBottom="Uma experiência única de música e cultura"
+    />
+
+    <!-- Conteúdo principal -->
+    <main>
+      <section class="hero">
+        <h1>STL Festival</h1>
+        <p>Conteúdo principal aqui</p>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+  }
+</style>
