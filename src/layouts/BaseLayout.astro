@@ -1,0 +1,151 @@
+---
+/**
+ * BaseLayout - Layout principal do STL Festival
+ * Inclui: SEO, meta tags, estrutura HTML, fontes, e scripts globais
+ */
+
+ import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'STL Festival 2026 | 06 de Junho • Música, Natureza e Cultura',
+  description = 'O STL Festival é mais do que música. É encontro, natureza, energia coletiva e som que atravessa o corpo. Sinta o clima do STL Festival em 06 de junho de 2026.',
+  image = '/og-image.jpg',
+  canonical = 'https://stlfestival.com.br',
+} = Astro.props;
+
+const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festival`;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="STL Festival" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical} />
+    <meta property="twitter:title" content={siteTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Performance: Preload recursos críticos acima da dobra -->
+    <link rel="preload" as="image" href="/logo/logo-stl.svg" />
+    <link rel="preload" as="image" href="/images/fallback-hero/foto-95.jpg" />
+    
+    <!-- Preconnect para Cloudinary (melhora carregamento do vídeo) -->
+    <link rel="preconnect" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Tema para navegadores móveis -->
+    <meta name="theme-color" content="#1e1876" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- SEO adicional -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="author" content="STL Festival" />
+    <meta
+      name="keywords"
+      content="STL Festival, festival de música, reggae, rap, música brasileira, evento ao ar livre, 2026"
+    />
+
+    <!-- Structured Data / JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'MusicEvent',
+        name: 'STL Festival 2026',
+        startDate: '2026-06-06T17:00',
+        location: {
+          '@type': 'Place',
+          name: 'STL Valley',
+          address: {
+            '@type': 'PostalAddress',
+            addressCountry: 'BR',
+          },
+        },
+        image: image,
+        description: description,
+        performer: [
+          { '@type': 'MusicGroup', name: 'Armandinho' },
+          { '@type': 'MusicGroup', name: 'Natiruts' },
+          { '@type': 'MusicGroup', name: 'Planta e Raiz' },
+          { '@type': 'MusicGroup', name: 'Marcelo D2' },
+          { '@type': 'MusicGroup', name: 'Rashid' },
+          { '@type': 'MusicGroup', name: 'Baco Exu do Blues' },
+          { '@type': 'MusicGroup', name: 'ÀTTØØXXÁ' },
+          { '@type': 'MusicGroup', name: 'Papatinho' },
+        ],
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+      })}
+    />
+
+    <!-- Prevent FOUC -->
+    <style>
+      html {
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      html.loaded {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Skip to content (acessibilidade) -->
+    <a href="#main-content" class="skip-to-content"> Pular para o conteúdo principal </a>
+
+    <!-- Main Content -->
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Scripts -->
+    <script>
+      // Prevent FOUC
+      document.documentElement.classList.add('loaded');
+
+      // Lazy load GSAP (apenas quando necessário)
+      if ('IntersectionObserver' in window) {
+        // Suporte a IntersectionObserver para lazy loading de animações
+        // IntersectionObserver disponível - animações prontas
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  /* Estilos específicos do layout se necessário */
+</style>

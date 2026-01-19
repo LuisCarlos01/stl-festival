@@ -1,0 +1,227 @@
+---
+/**
+ * SpotifyBadge - Componente de badge do Spotify com design glassmorphism
+ * Variantes: fixed, inline
+ * Posições: left, right, bottom
+ * Tamanhos: sm, md, lg
+ */
+
+interface Props {
+  playlistUrl: string;
+  variant?: 'fixed' | 'inline';
+  position?: 'left' | 'right' | 'bottom';
+  size?: 'sm' | 'md' | 'lg';
+  showText?: boolean;
+  class?: string;
+}
+
+const {
+  playlistUrl,
+  variant = 'fixed',
+  position = 'left',
+  size = 'md',
+  showText = true,
+  class: className = '',
+} = Astro.props;
+
+// Classes dinâmicas baseadas em props
+const positionClasses = {
+  left: 'left-0', // Encosta no canto esquerdo (bookmark style)
+  right: 'right-4 md:right-6',
+  bottom: 'bottom-4 md:bottom-6',
+};
+
+const sizeClasses = {
+  sm: 'pl-5 pr-4 py-2.5 text-base min-h-[48px]',
+  md: 'pl-7 pr-6 py-4 text-lg min-h-[56px]',
+  lg: 'pl-8 pr-7 py-5 text-xl min-h-[64px]',
+};
+
+const iconSizes = {
+  sm: 'w-7 h-7',
+  md: 'w-10 h-10',
+  lg: 'w-12 h-12',
+};
+
+const baseClasses = [
+  'spotify-badge group',
+  'flex items-center justify-center gap-4',
+  'backdrop-blur-md bg-white/10',
+  'border border-white/20',
+  'rounded-r-full rounded-l-none shadow-lg shadow-black/10',
+  'hover:brightness-110',
+  'hover:border-white/30',
+  'transition-all duration-300',
+  'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
+  sizeClasses[size],
+  className,
+];
+
+if (variant === 'fixed') {
+  baseClasses.push(`fixed ${positionClasses[position]} top-1/2 -translate-y-1/2 z-20`);
+} else {
+  baseClasses.push('relative');
+}
+---
+
+<a
+  href={playlistUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+  class={baseClasses.join(' ')}
+  aria-label="Abrir Playlist Oficial no Spotify"
+>
+  <!-- Texto primeiro (oculto em mobile se showText=true) -->
+  {
+    showText && (
+      <span class="spotify-text hidden sm:block font-body font-semibold text-white whitespace-nowrap leading-tight">
+        Playlist Oficial
+      </span>
+    )
+  }
+
+  <!-- Container do ícone com efeito de "buraco" -->
+  <span class="spotify-icon-hole relative inline-flex items-center justify-center">
+    <!-- Ícone Spotify (sem animações, minimalista) -->
+    <svg
+      class={`${iconSizes[size]} flex-shrink-0 text-[#1DB954] relative z-10`}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"
+      ></path>
+    </svg>
+  </span>
+
+  <!-- Efeito de brilho no hover -->
+  <span
+    class="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+    aria-hidden="true"></span>
+</a>
+
+<style>
+  .spotify-badge {
+    /* Garantir que o glassmorphism funcione em todos os browsers */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    /* Transição SUAVE entre seções */
+    transition:
+      background-color 400ms ease-in-out,
+      border-color 400ms ease-in-out,
+      box-shadow 400ms ease-in-out;
+  }
+
+  /* ========================================
+     Cores por Seção - Paleta STL Festival
+     ======================================== */
+
+  /* Hero: Translúcido (padrão) */
+  .spotify-badge.badge-hero {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Sobre: Verde profundo #006a47 */
+  .spotify-badge.badge-sobre {
+    background: linear-gradient(135deg, rgba(0, 106, 71, 0.95) 0%, rgba(0, 106, 71, 0.98) 100%);
+    border-color: rgba(255, 157, 40, 0.4); /* Acento laranja #ff9d28 */
+    box-shadow:
+      0 4px 24px rgba(0, 106, 71, 0.35),
+      0 0 0 1px rgba(255, 157, 40, 0.2);
+  }
+
+  /* Lineup: Laranja intenso #ff9d28 */
+  .spotify-badge.badge-lineup {
+    background: linear-gradient(135deg, rgba(255, 157, 40, 0.95) 0%, rgba(255, 157, 40, 0.98) 100%);
+    border-color: rgba(30, 24, 118, 0.5); /* Acento índigo #1e1876 */
+    box-shadow:
+      0 4px 24px rgba(255, 157, 40, 0.35),
+      0 0 0 1px rgba(30, 24, 118, 0.3);
+  }
+
+  /* Ingressos: Vermelho-alaranjado #ff4d2d */
+  .spotify-badge.badge-ingressos {
+    background: linear-gradient(135deg, rgba(255, 77, 45, 0.95) 0%, rgba(255, 77, 45, 0.98) 100%);
+    border-color: rgba(254, 251, 223, 0.6); /* Acento creme #fefbdf */
+    box-shadow:
+      0 4px 24px rgba(255, 77, 45, 0.35),
+      0 0 0 1px rgba(254, 251, 223, 0.3);
+  }
+
+  /* Playlist: Azul-índigo #1e1876 */
+  .spotify-badge.badge-playlist {
+    background: linear-gradient(135deg, rgba(30, 24, 118, 0.95) 0%, rgba(30, 24, 118, 0.98) 100%);
+    border-color: rgba(255, 77, 45, 0.5); /* Acento vermelho #ff4d2d */
+    box-shadow:
+      0 4px 24px rgba(30, 24, 118, 0.35),
+      0 0 0 1px rgba(255, 77, 45, 0.25);
+  }
+
+  /* Hover: Intensificar borda */
+  .spotify-badge:hover {
+    filter: brightness(1.1);
+  }
+
+  .spotify-badge.badge-sobre:hover {
+    border-color: rgba(255, 157, 40, 0.6);
+  }
+
+  .spotify-badge.badge-lineup:hover {
+    border-color: rgba(30, 24, 118, 0.7);
+  }
+
+  .spotify-badge.badge-ingressos:hover {
+    border-color: rgba(254, 251, 223, 0.8);
+  }
+
+  .spotify-badge.badge-playlist:hover {
+    border-color: rgba(255, 77, 45, 0.7);
+  }
+
+  /* Ajuste fino para alinhamento vertical do texto */
+  .spotify-text {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Efeito de "buraco" ao redor do ícone */
+  .spotify-icon-hole {
+    position: relative;
+    padding: 6px;
+  }
+
+  /* Círculo vazado (buraco) ao redor do ícone */
+  .spotify-icon-hole::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    z-index: 0;
+  }
+
+  /* Efeito mais visível no hover */
+  .spotify-badge:hover .spotify-icon-hole::before {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Suporte para prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .spotify-badge {
+      transition: opacity 0.2s;
+    }
+
+    .spotify-badge:hover {
+      transform: none;
+    }
+
+    .spotify-icon-hole::before {
+      transition: none;
+    }
+  }
+</style>

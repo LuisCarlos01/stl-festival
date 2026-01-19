@@ -1,49 +1,57 @@
 ---
-// Página principal - STL Festival
-// Stack: Astro + React Islands + Framer Motion
-import Preloader from '../components/Preloader';
+/**
+ * STL Festival - Landing Page
+ * Página principal com todas as seções do festival
+ */
+
+ import BaseLayout from '../layouts/BaseLayout.astro';
+import Preloader from '../components/Preloader.tsx';
+import Hero from '../components/sections/Hero.astro';
+
+// URL do video Cloudinary
+const videoUrl =
+  import.meta.env.CLOUDINARY_VIDEO_URL ||
+  'https://res.cloudinary.com/dazkdemvu/video/upload/v1768415565/stl-festival/videos/hero.mp4';
 ---
 
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="STL Festival - Site institucional" />
-    <title>STL Festival</title>
-  </head>
-  <body>
-    <!-- Preloader como React Island -->
-    <!-- client:load = carrega imediatamente (preloader é crítico) -->
-    <Preloader 
-      client:load
-      logoSrc="/logo.png"
-      phraseTop="Bem-vindo ao STL Festival"
-      phraseBottom="Uma experiência única de música e cultura"
-    />
+<BaseLayout>
+  <!-- Preloader com cortinas (z-index alto) -->
+  <Preloader
+    client:load
+    logoSrc="/logo/logo-stl.svg"
+    phraseTop="Um mundo de vibes"
+    phraseBottom="Conexão, música, natureza e sustentabilidade"
+  />
 
-    <!-- Conteúdo principal -->
-    <main>
-      <section class="hero">
-        <h1>STL Festival</h1>
-        <p>Conteúdo principal aqui</p>
-      </section>
-    </main>
-  </body>
-</html>
+  <!-- Hero com video (atrás do preloader) -->
+  <Hero videoUrl={videoUrl} />
 
-<style>
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-  }
+  <!-- Placeholder para próximas seções (Sprint 2) -->
+  <section id="sobre" class="py-20 bg-white min-h-screen">
+    <div class="container-responsive text-center">
+      <h2 class="font-display text-primary-indigo mb-4">Sobre o STL Festival</h2>
+      <p class="text-secondary-green">Em breve...</p>
+    </div>
+  </section>
 
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: #000;
-    color: #fff;
-  }
-</style>
+  <section id="lineup" class="py-20 bg-neutral-cream min-h-screen">
+    <div class="container-responsive text-center">
+      <h2 class="font-display text-primary-indigo mb-4">Line-up</h2>
+      <p class="text-secondary-green">Em breve...</p>
+    </div>
+  </section>
+
+  <section id="ingressos" class="py-20 bg-primary-indigo min-h-screen">
+    <div class="container-responsive text-center">
+      <h2 class="font-display text-white mb-4">Ingressos</h2>
+      <p class="text-white/80">Em breve...</p>
+    </div>
+  </section>
+
+  <section id="playlist" class="py-20 bg-neutral-cream min-h-screen">
+    <div class="container-responsive text-center">
+      <h2 class="font-display text-primary-indigo mb-4">Playlist Oficial</h2>
+      <p class="text-secondary-green">Em breve...</p>
+    </div>
+  </section>
+</BaseLayout>

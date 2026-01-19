@@ -1,0 +1,318 @@
+---
+/**
+ * Hero Section - STL Festival
+ * Seção de entrada com video de fundo do Cloudinary
+ * Vídeo só inicia após preloader completar
+ */
+
+import SpotifyBadge from '../ui/SpotifyBadge.astro';
+
+interface Props {
+  videoUrl?: string;
+  fallbackImage?: string;
+}
+
+// URL do vídeo Cloudinary e imagem de fallback (estratégia híbrida)
+const {
+  videoUrl = import.meta.env.CLOUDINARY_VIDEO_URL ||
+    'https://res.cloudinary.com/dazkdemvu/video/upload/v1768415565/stl-festival/videos/hero.mp4',
+  fallbackImage = import.meta.env.CLOUDINARY_FALLBACK_IMAGE_URL ||
+    '/images/fallback-hero/foto-95.jpg',
+} = Astro.props;
+
+// URL da playlist do Spotify via variável de ambiente
+const spotifyPlaylistUrl =
+  import.meta.env.PUBLIC_SPOTIFY_PLAYLIST_URL || 'https://open.spotify.com/playlist/[placeholder]';
+---
+
+<section class="hero relative h-screen w-full flex items-center justify-center overflow-hidden">
+  <!-- Imagem de fallback (sempre carregada, mas escondida se vídeo funcionar) -->
+  <img
+    id="hero-fallback-image"
+    src={fallbackImage}
+    alt="STL Festival - Multidão curtindo o festival"
+    class="absolute inset-0 w-full h-full min-w-full min-h-full object-cover z-0 opacity-0 transition-opacity duration-500"
+    style="object-position: center 75%;"
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+    width="1920"
+    height="1080"
+    aria-hidden="true"
+  />
+
+  <!-- Video de fundo Cloudinary (tentará carregar por cima da imagem) -->
+  {
+    videoUrl && (
+      <video
+        id="hero-video"
+        loop
+        muted
+        playsinline
+        preload="auto"
+        poster={fallbackImage}
+        class="absolute inset-0 w-full h-full min-w-full min-h-full object-cover z-[1] opacity-0 transition-opacity duration-500"
+        style="object-position: center 75%;"
+        aria-hidden="true"
+      >
+        <!-- Múltiplas qualidades para diferentes tamanhos de tela -->
+        <source
+          src={videoUrl.replace('/upload/', '/upload/q_auto:low,w_960,br_800k,ac_none/')}
+          type="video/mp4"
+          media="(max-width: 768px)"
+        />
+        <source
+          src={videoUrl.replace('/upload/', '/upload/q_auto:low,w_1280,br_1500k,ac_none/')}
+          type="video/mp4"
+          media="(max-width: 1920px)"
+        />
+        <source src={videoUrl} type="video/mp4" />
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+    )
+  }
+
+  <!-- Overlay escuro sutil para melhorar legibilidade -->
+  <div class="absolute inset-0 bg-black/20 z-[1]" aria-hidden="true"></div>
+
+  <!-- Logo STL (canto superior esquerdo) -->
+  <div
+    class="fixed top-4 md:top-6 left-4 md:left-6 z-20 hero-logo opacity-0 transition-opacity duration-500"
+  >
+    <a
+      href="/"
+      class="block cursor-pointer hover:opacity-80 transition-opacity duration-300"
+      aria-label="Voltar ao início"
+    >
+      <img
+        src="/logo/logo-stl.svg"
+        alt="STL Festival Logo"
+        class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+        width="64"
+        height="64"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+  </div>
+
+  <!-- Badge do Spotify (lado esquerdo) -->
+  <SpotifyBadge
+    playlistUrl={spotifyPlaylistUrl}
+    variant="fixed"
+    position="left"
+    size="md"
+    showText={true}
+    class="hero-spotify-badge opacity-0 transition-opacity duration-500"
+  />
+
+  <!-- Texto com scroll infinito - Data do evento -->
+  <div
+    class="absolute bottom-0 left-0 right-0 z-10 overflow-hidden bg-gradient-to-t from-black/60 to-transparent py-4"
+  >
+    <div class="marquee-container">
+      <div class="marquee-content" id="marquee-text">
+        <!-- Duplicar mais vezes para garantir loop infinito -->
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+        <span class="marquee-item">06 • JUNHO • 2026 •</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador de Scroll para Mobile (seta para baixo) -->
+  <div
+    id="mobile-scroll-indicator"
+    class="lg:hidden absolute bottom-20 left-1/2 -translate-x-1/2 z-20 opacity-0 transition-opacity duration-500"
+  >
+    <div class="flex flex-col items-center gap-1">
+      <!-- Seta animada -->
+      <svg
+        class="w-6 h-6 text-white/70 animate-bounce-slow"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+      <!-- Texto discreto -->
+      <span class="text-white/50 text-[10px] font-body uppercase tracking-wider"> Deslize </span>
+    </div>
+  </div>
+
+  <!-- Título acessível (visualmente oculto) -->
+  <h1 class="sr-only">STL Festival 2026</h1>
+</section>
+
+<script>
+  import {
+    updateHeroContent,
+    startVideo,
+    setupVideoErrorHandling,
+    type VideoControlElements,
+  } from '../../scripts/hero/videoControl';
+  import { setupMarqueeScrollSync } from '../../scripts/hero/marqueeSync';
+  import { setupBadgeColorDetection } from '../../scripts/hero/badgeDetection';
+  import { setupMobileScrollIndicator } from '../../scripts/hero/mobileIndicator';
+
+  // Obter elementos
+  const elements: VideoControlElements = {
+    video: document.getElementById('hero-video') as HTMLVideoElement,
+    fallbackImage: document.getElementById('hero-fallback-image') as HTMLImageElement,
+    logo: document.querySelector('.hero-logo') as HTMLElement,
+    badge: document.querySelector('.hero-spotify-badge') as HTMLElement,
+  };
+
+  // Configurar tratamento de erros ao carregar a página
+  setupVideoErrorHandling(elements);
+
+  // Escutar eventos do Preloader
+  window.addEventListener('preloader-progress', ((e: CustomEvent<number>) => {
+    updateHeroContent(e.detail, elements);
+  }) as EventListener);
+
+  window.addEventListener('preloader-complete', () => {
+    startVideo(elements);
+    if (elements.logo) elements.logo.style.opacity = '1';
+    if (elements.badge) elements.badge.style.opacity = '1';
+
+    // Inicializar funcionalidades após preloader
+    setupMarqueeScrollSync();
+    setupBadgeColorDetection();
+  });
+
+  // Verificar reduced motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (prefersReducedMotion) {
+    // Se reduced motion, iniciar tudo direto
+    startVideo(elements);
+    if (elements.fallbackImage) elements.fallbackImage.style.opacity = '1';
+    if (elements.logo) elements.logo.style.opacity = '1';
+    if (elements.badge) elements.badge.style.opacity = '1';
+    setupMarqueeScrollSync();
+    setupBadgeColorDetection();
+  } else {
+    // Inicializar com vídeo, logo e badge ocultos
+    updateHeroContent(0, elements);
+  }
+
+  // Inicializar indicador mobile (funciona independente)
+  setupMobileScrollIndicator();
+
+  // Se reduced motion, inicializar mobile indicator
+  if (prefersReducedMotion) {
+    const indicator = document.getElementById('mobile-scroll-indicator');
+    if (indicator && window.innerWidth < 1024) {
+      setTimeout(() => {
+        indicator.style.opacity = '1';
+      }, 1000);
+    }
+  }
+</script>
+
+<style>
+  /* Garantir que imagem de fallback e vídeo cubram toda a tela */
+  #hero-fallback-image,
+  #hero-video {
+    min-width: 100%;
+    min-height: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #hero-fallback-image {
+    z-index: 0;
+  }
+
+  #hero-video {
+    z-index: 1;
+  }
+
+  /* Garantir que a seção Hero ocupe toda a viewport */
+  .hero {
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height para mobile */
+  }
+
+  /* Container do marquee */
+  .marquee-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  /* Conteúdo do marquee */
+  .marquee-content {
+    display: flex;
+    width: fit-content;
+    white-space: nowrap;
+    will-change: transform;
+  }
+
+  /* Cada item do marquee */
+  .marquee-item {
+    display: inline-block;
+    padding: 0 4rem;
+    font-family: 'Jairo', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Suporte para prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-content {
+      animation: none;
+    }
+  }
+
+  /* Mobile: texto menor */
+  @media (max-width: 640px) {
+    .marquee-item {
+      padding: 0 2rem;
+      letter-spacing: 0.15em;
+    }
+  }
+
+  /* Animação bounce suave para seta mobile */
+  @keyframes bounce-slow {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateY(8px);
+      opacity: 1;
+    }
+  }
+
+  .animate-bounce-slow {
+    animation: bounce-slow 2s ease-in-out infinite;
+  }
+
+  /* Suporte para prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-bounce-slow {
+      animation: none;
+    }
+  }
+</style>

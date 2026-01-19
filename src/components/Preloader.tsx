@@ -185,29 +185,6 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
       className="fixed inset-0 z-[100] pointer-events-none"
       style={{ opacity: preloaderOpacity }}
     >
-      {/* Indicador de Scroll (apenas desktop) */}
-      {!isMobile && progress < 10 && (
-        <motion.div
-          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[101] flex flex-col items-center gap-2"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1, duration: 0.6 }}
-        >
-          <div className="scroll-indicator">
-            <div className="scroll-indicator-mouse">
-              <div className="scroll-indicator-wheel"></div>
-            </div>
-          </div>
-          <motion.p
-            className="text-white/60 text-xs font-body uppercase tracking-wider"
-            animate={{ opacity: [0.6, 1, 0.6] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            Role para começar
-          </motion.p>
-        </motion.div>
-      )}
-
       {/* Cortina Superior */}
       <motion.div
         className="absolute top-0 left-0 right-0 h-1/2 bg-black flex items-center justify-center"
@@ -253,44 +230,6 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
         </motion.p>
       </motion.div>
 
-      {/* Estilos do indicador de scroll */}
-      <style>{`
-        .scroll-indicator-mouse {
-          width: 26px;
-          height: 40px;
-          border: 2px solid rgba(255, 255, 255, 0.4);
-          border-radius: 13px;
-          position: relative;
-          display: flex;
-          justify-content: center;
-          padding-top: 8px;
-        }
-
-        .scroll-indicator-wheel {
-          width: 3px;
-          height: 8px;
-          background: rgba(255, 255, 255, 0.6);
-          border-radius: 2px;
-          animation: scroll-animation 1.5s infinite;
-        }
-
-        @keyframes scroll-animation {
-          0% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          100% {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .scroll-indicator-wheel {
-            animation: none;
-          }
-        }
-      `}</style>
     </motion.div>
   );
 }
