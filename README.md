@@ -69,6 +69,33 @@ npm run build
 npm run preview
 ```
 
+### Scripts de Qualidade
+
+```bash
+# Linting e Formatação
+npm run lint          # Executa ESLint
+npm run lint:fix      # Executa ESLint e corrige automaticamente
+npm run format        # Formata código com Prettier
+npm run format:check  # Verifica formatação sem modificar arquivos
+
+# Validação
+npm run typecheck     # Verifica tipos TypeScript sem compilar
+```
+
+## CI/CD
+
+O projeto possui CI/CD completo configurado com GitHub Actions e deploy automático no Vercel.
+
+**Workflows:**
+- **CI**: Valida código (lint, format, typecheck, build) em todos os PRs
+- **CD**: Deploy automático no Vercel (preview para PRs, production para `main`)
+
+**Documentação completa:** Veja [`docs/CI_CD_SETUP.md`](docs/CI_CD_SETUP.md) para:
+- Configuração de secrets
+- Branch protection rules
+- Conventional Commits
+- Troubleshooting
+
 ## Guidelines
 
 Consulte `.cursor/rules/arquitetura/stack-definitiva.md` para regras completas da stack.

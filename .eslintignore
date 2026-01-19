@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+.output/
+.astro/
+
+# Config files
+*.config.{js,mjs,ts}
+tailwind.config.mjs
+astro.config.mjs
+
+# Public assets
+public/
+
+# Logs
+*.log

@@ -1,0 +1,80 @@
+name: 🧹 Chore / Maintenance
+description: Tarefas de manutenção, refatoração ou melhorias técnicas
+title: '[CHORE] '
+labels: ['chore', 'maintenance']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este template para tarefas de manutenção, refatoração, atualizações de dependências ou melhorias técnicas que não adicionam novas features nem corrigem bugs.
+
+  - type: dropdown
+    id: chore_type
+    attributes:
+      label: Tipo de Chore
+      description: Qual o tipo de tarefa de manutenção?
+      options:
+        - Refatoração de código
+        - Atualização de dependências
+        - Melhoria de performance
+        - Melhoria de acessibilidade
+        - Melhoria de SEO
+        - Documentação
+        - Configuração/Setup
+        - Limpeza de código
+        - Otimização de build
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+      description: Descreva a tarefa de manutenção a ser realizada
+      placeholder: Descreva o que precisa ser feito...
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivação
+      description: Por que esta tarefa é necessária? Qual problema resolve ou melhoria traz?
+      placeholder: Explique a motivação por trás desta tarefa...
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Escopo
+      description: Quais arquivos/componentes/sistemas serão afetados?
+      placeholder: |
+        - Arquivos: src/components/...
+        - Componentes: Preloader, Hero...
+        - Sistemas: Build, CI/CD...
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impacto Esperado
+      description: Qual o impacto esperado desta mudança?
+      placeholder: |
+        - Performance: ...
+        - Manutenibilidade: ...
+        - Developer Experience: ...
+        - Bundle size: ...
+
+  - type: textarea
+    id: breaking_changes
+    attributes:
+      label: Breaking Changes
+      description: Esta mudança introduz breaking changes? Se sim, descreva.
+      placeholder: Nenhum breaking change esperado / Descreva os breaking changes...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmação
+      options:
+        - label: Confirmei que não existe uma issue similar já aberta
+          required: true
