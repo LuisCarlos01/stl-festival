@@ -15,10 +15,14 @@ pnpm-debug.log*
 .env
 .env.production
 
+
 # macOS-specific files
 .DS_Store
+__MACOSX/
+._*
 
 # IDE
+.cursor/
 .vscode/
 .idea/
 *.swp

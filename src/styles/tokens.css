@@ -7,11 +7,23 @@
    FONTES
    ============================================ */
 
+/* Jairo - Display font (headlines, CTAs) */
 @font-face {
   font-family: 'Jairo';
   src:
-    url('../assets/fonts/Jairo.woff2') format('woff2'),
-    url('../assets/fonts/Jairo.woff') format('woff');
+    url('../assets/fonts/jairo/Jairo.woff2') format('woff2'),
+    url('../assets/fonts/jairo/Jairo.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Superbusy Activity - Decorative font (optional) */
+@font-face {
+  font-family: 'Superbusy Activity';
+  src:
+    url('../assets/fonts/superbusy-activity-fun-pairing-font-2024-09-21-02-56-52-utc/Superbusy Activity/Web-TT/SuperbusyActivity-Regular.woff2') format('woff2'),
+    url('../assets/fonts/superbusy-activity-fun-pairing-font-2024-09-21-02-56-52-utc/Superbusy Activity/Web-TT/SuperbusyActivity-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
