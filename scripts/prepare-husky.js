@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { execSync } from 'child_process'
+
 // Skip Husky installation in CI environments
 const isCI = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true'
 
@@ -9,7 +11,6 @@ if (isCI) {
 }
 
 // Run Husky installation
-const { execSync } = require('child_process')
 try {
   execSync('husky', { stdio: 'inherit' })
 } catch {

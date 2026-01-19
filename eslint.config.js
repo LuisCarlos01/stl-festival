@@ -91,15 +91,10 @@ export default [
     files: ['scripts/**/*.js'],
     languageOptions: {
       globals: {
-        process: 'readonly',
-        console: 'readonly',
-        require: 'readonly',
-        module: 'readonly',
-        __dirname: 'readonly',
-        __filename: 'readonly',
+        ...globals.node,
       },
       ecmaVersion: 'latest',
-      sourceType: 'commonjs',
+      sourceType: 'module',
     },
     rules: {
       'no-console': 'off', // Allow console in scripts
