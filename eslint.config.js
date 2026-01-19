@@ -1,11 +1,11 @@
-import js from '@eslint/js';
-import typescript from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import astro from 'eslint-plugin-astro';
-import prettier from 'eslint-config-prettier';
+import js from '@eslint/js'
+import typescript from '@typescript-eslint/eslint-plugin'
+import typescriptParser from '@typescript-eslint/parser'
+import react from 'eslint-plugin-react'
+import reactHooks from 'eslint-plugin-react-hooks'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import astro from 'eslint-plugin-astro'
+import prettier from 'eslint-config-prettier'
 
 export default [
   // Base JavaScript recommendations
@@ -83,6 +83,26 @@ export default [
     },
   },
 
+  // Node.js scripts
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
+        require: 'readonly',
+        module: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+      ecmaVersion: 'latest',
+      sourceType: 'commonjs',
+    },
+    rules: {
+      'no-console': 'off', // Allow console in scripts
+    },
+  },
+
   // Prettier integration (must be last)
   prettier,
-];
+]
