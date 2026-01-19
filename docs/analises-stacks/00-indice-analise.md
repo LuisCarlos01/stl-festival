@@ -13,7 +13,9 @@ Esta análise completa foi realizada usando o método **Tree of Thought (ToT)** 
 ## Documentos da Análise
 
 ### 1. [Análise ToT Completa](01-analise-tot-completa.md)
+
 Exploração detalhada dos 6 caminhos arquiteturais:
+
 - Caminho 1: Astro + React + GSAP
 - Caminho 2: Astro + React + Framer Motion ⭐ **RECOMENDADO**
 - Caminho 3: Astro + React + GSAP + Framer Motion
@@ -26,7 +28,9 @@ Exploração detalhada dos 6 caminhos arquiteturais:
 ---
 
 ### 2. [Análise de Viabilidade do Preloader](02-preloader-rewrite-analysis.md)
+
 Análise específica sobre reescrever o Preloader em cada stack:
+
 - Viabilidade técnica
 - Esforço estimado
 - Comparação Framer Motion vs GSAP vs CSS
@@ -37,7 +41,9 @@ Análise específica sobre reescrever o Preloader em cada stack:
 ---
 
 ### 3. [Análise de Bundle Size](03-bundle-size-analysis.md)
+
 Breakdown detalhado de bundle para cada caminho:
+
 - Tamanhos reais (gzipped)
 - Comparação lado a lado
 - Impacto em performance
@@ -48,7 +54,9 @@ Breakdown detalhado de bundle para cada caminho:
 ---
 
 ### 4. [Resultados Gate 1](04-gate1-results.md)
+
 Resultados do filtro eliminatório (Performance + SEO + Responsividade):
+
 - Critérios avaliados
 - Aprovações/reprovações
 - Justificativas técnicas
@@ -58,7 +66,9 @@ Resultados do filtro eliminatório (Performance + SEO + Responsividade):
 ---
 
 ### 5. [Análise Comparativa Gate 2](05-gate2-comparative-analysis.md)
+
 Avaliação detalhada dos caminhos aprovados:
+
 - 5 critérios com pesos
 - Scores finais (0-100)
 - Ranqueamento
@@ -68,7 +78,9 @@ Avaliação detalhada dos caminhos aprovados:
 ---
 
 ### 6. [Matriz de Decisão](06-matriz-decisao.md)
+
 Comparação visual completa:
+
 - Pros e contras de cada caminho
 - Casos de uso ideais
 - TOP 3 ranqueados
@@ -79,7 +91,9 @@ Comparação visual completa:
 ---
 
 ### 7. [Guia de Otimização](07-performance-optimization-strategies.md)
+
 Estratégias práticas para manter Performance + Animações:
+
 - Lazy loading estratégico
 - Code splitting agressivo
 - Animações GPU-accelerated
@@ -91,7 +105,9 @@ Estratégias práticas para manter Performance + Animações:
 ---
 
 ### 8. [Stack Recomendada Final](08-stack-recomendada-final.md)
+
 Recomendação fundamentada com:
+
 - Justificativas técnicas
 - Decisão sobre Preloader
 - Plano de implementação
@@ -102,7 +118,9 @@ Recomendação fundamentada com:
 ---
 
 ### 9. [Guidelines Definitivas](../.cursor/rules/arquitetura/stack-definitiva.md)
+
 Regras obrigatórias para uso da stack:
+
 - Quando usar React
 - Quando usar Framer Motion
 - Quando usar CSS
@@ -143,6 +161,7 @@ Styling: Tailwind CSS 3.x
 ### Decisão sobre Preloader
 
 ✅ **MANTER** Preloader atual (Framer Motion)
+
 - Código já implementado e testado
 - Zero esforço de desenvolvimento
 - Funcionalidade completa
@@ -163,6 +182,7 @@ Styling: Tailwind CSS 3.x
 ## Contato e Dúvidas
 
 Para dúvidas sobre a análise ou stack recomendada, consultar:
+
 - [Stack Recomendada Final](08-stack-recomendada-final.md) - Decisão detalhada
 - [Guidelines Definitivas](../.cursor/rules/arquitetura/stack-definitiva.md) - Regras de uso
 

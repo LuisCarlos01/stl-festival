@@ -38,12 +38,13 @@ O Preloader é um componente React que usa Framer Motion para animações de cor
 - Performance otimizada (GPU-accelerated)
 
 **Uso no Astro**:
+
 ```astro
 ---
-import Preloader from '../components/Preloader';
+import Preloader from '../components/Preloader'
 ---
 
-<Preloader 
+<Preloader
   client:load
   logoSrc="/logo.png"
   phraseTop="Bem-vindo ao STL Festival"
@@ -87,10 +88,12 @@ npm run typecheck     # Verifica tipos TypeScript sem compilar
 O projeto possui CI/CD completo configurado com GitHub Actions e deploy automático no Vercel.
 
 **Workflows:**
+
 - **CI**: Valida código (lint, format, typecheck, build) em todos os PRs
 - **CD**: Deploy automático no Vercel (preview para PRs, production para `main`)
 
 **Documentação completa:** Veja [`docs/CI_CD_SETUP.md`](docs/CI_CD_SETUP.md) para:
+
 - Configuração de secrets
 - Branch protection rules
 - Conventional Commits

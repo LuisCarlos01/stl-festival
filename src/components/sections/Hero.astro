@@ -5,11 +5,11 @@
  * Vídeo só inicia após preloader completar
  */
 
-import SpotifyBadge from '../ui/SpotifyBadge.astro';
+import SpotifyBadge from '../ui/SpotifyBadge.astro'
 
 interface Props {
-  videoUrl?: string;
-  fallbackImage?: string;
+  videoUrl?: string
+  fallbackImage?: string
 }
 
 // URL do vídeo Cloudinary e imagem de fallback (estratégia híbrida)
@@ -18,20 +18,20 @@ const {
     'https://res.cloudinary.com/dazkdemvu/video/upload/v1768415565/stl-festival/videos/hero.mp4',
   fallbackImage = import.meta.env.CLOUDINARY_FALLBACK_IMAGE_URL ||
     '/images/fallback-hero/foto-95.jpg',
-} = Astro.props;
+} = Astro.props
 
 // URL da playlist do Spotify via variável de ambiente
 const spotifyPlaylistUrl =
-  import.meta.env.PUBLIC_SPOTIFY_PLAYLIST_URL || 'https://open.spotify.com/playlist/[placeholder]';
+  import.meta.env.PUBLIC_SPOTIFY_PLAYLIST_URL || 'https://open.spotify.com/playlist/[placeholder]'
 ---
 
-<section class="hero relative h-screen w-full flex items-center justify-center overflow-hidden">
+<section class="hero relative flex h-screen w-full items-center justify-center overflow-hidden">
   <!-- Imagem de fallback (sempre carregada, mas escondida se vídeo funcionar) -->
   <img
     id="hero-fallback-image"
     src={fallbackImage}
     alt="STL Festival - Multidão curtindo o festival"
-    class="absolute inset-0 w-full h-full min-w-full min-h-full object-cover z-0 opacity-0 transition-opacity duration-500"
+    class="absolute inset-0 z-0 h-full min-h-full w-full min-w-full object-cover opacity-0 transition-opacity duration-500"
     style="object-position: center 75%;"
     loading="eager"
     decoding="async"
@@ -51,11 +51,10 @@ const spotifyPlaylistUrl =
         playsinline
         preload="auto"
         poster={fallbackImage}
-        class="absolute inset-0 w-full h-full min-w-full min-h-full object-cover z-[1] opacity-0 transition-opacity duration-500"
+        class="absolute inset-0 z-[1] h-full min-h-full w-full min-w-full object-cover opacity-0 transition-opacity duration-500"
         style="object-position: center 75%;"
         aria-hidden="true"
       >
-        <!-- Múltiplas qualidades para diferentes tamanhos de tela -->
         <source
           src={videoUrl.replace('/upload/', '/upload/q_auto:low,w_960,br_800k,ac_none/')}
           type="video/mp4"
@@ -73,21 +72,21 @@ const spotifyPlaylistUrl =
   }
 
   <!-- Overlay escuro sutil para melhorar legibilidade -->
-  <div class="absolute inset-0 bg-black/20 z-[1]" aria-hidden="true"></div>
+  <div class="absolute inset-0 z-[1] bg-black/20" aria-hidden="true"></div>
 
   <!-- Logo STL (canto superior esquerdo) -->
   <div
-    class="fixed top-4 md:top-6 left-4 md:left-6 z-20 hero-logo opacity-0 transition-opacity duration-500"
+    class="hero-logo fixed left-4 top-4 z-20 opacity-0 transition-opacity duration-500 md:left-6 md:top-6"
   >
     <a
       href="/"
-      class="block cursor-pointer hover:opacity-80 transition-opacity duration-300"
+      class="block cursor-pointer transition-opacity duration-300 hover:opacity-80"
       aria-label="Voltar ao início"
     >
       <img
         src="/logo/logo-stl.svg"
         alt="STL Festival Logo"
-        class="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 object-contain"
+        class="h-12 w-12 object-contain sm:h-14 sm:w-14 md:h-16 md:w-16"
         width="64"
         height="64"
         loading="eager"
@@ -128,12 +127,12 @@ const spotifyPlaylistUrl =
   <!-- Indicador de Scroll para Mobile (seta para baixo) -->
   <div
     id="mobile-scroll-indicator"
-    class="lg:hidden absolute bottom-20 left-1/2 -translate-x-1/2 z-20 opacity-0 transition-opacity duration-500"
+    class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2 opacity-0 transition-opacity duration-500 lg:hidden"
   >
     <div class="flex flex-col items-center gap-1">
       <!-- Seta animada -->
       <svg
-        class="w-6 h-6 text-white/70 animate-bounce-slow"
+        class="animate-bounce-slow h-6 w-6 text-white/70"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -146,7 +145,7 @@ const spotifyPlaylistUrl =
           d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
       <!-- Texto discreto -->
-      <span class="text-white/50 text-[10px] font-body uppercase tracking-wider"> Deslize </span>
+      <span class="font-body text-[10px] uppercase tracking-wider text-white/50"> Deslize </span>
     </div>
   </div>
 
@@ -160,10 +159,10 @@ const spotifyPlaylistUrl =
     startVideo,
     setupVideoErrorHandling,
     type VideoControlElements,
-  } from '../../scripts/hero/videoControl';
-  import { setupMarqueeScrollSync } from '../../scripts/hero/marqueeSync';
-  import { setupBadgeColorDetection } from '../../scripts/hero/badgeDetection';
-  import { setupMobileScrollIndicator } from '../../scripts/hero/mobileIndicator';
+  } from '../../scripts/hero/videoControl'
+  import { setupMarqueeScrollSync } from '../../scripts/hero/marqueeSync'
+  import { setupBadgeColorDetection } from '../../scripts/hero/badgeDetection'
+  import { setupMobileScrollIndicator } from '../../scripts/hero/mobileIndicator'
 
   // Obter elementos
   const elements: VideoControlElements = {
@@ -171,52 +170,52 @@ const spotifyPlaylistUrl =
     fallbackImage: document.getElementById('hero-fallback-image') as HTMLImageElement,
     logo: document.querySelector('.hero-logo') as HTMLElement,
     badge: document.querySelector('.hero-spotify-badge') as HTMLElement,
-  };
+  }
 
   // Configurar tratamento de erros ao carregar a página
-  setupVideoErrorHandling(elements);
+  setupVideoErrorHandling(elements)
 
   // Escutar eventos do Preloader
   window.addEventListener('preloader-progress', ((e: CustomEvent<number>) => {
-    updateHeroContent(e.detail, elements);
-  }) as EventListener);
+    updateHeroContent(e.detail, elements)
+  }) as EventListener)
 
   window.addEventListener('preloader-complete', () => {
-    startVideo(elements);
-    if (elements.logo) elements.logo.style.opacity = '1';
-    if (elements.badge) elements.badge.style.opacity = '1';
+    startVideo(elements)
+    if (elements.logo) elements.logo.style.opacity = '1'
+    if (elements.badge) elements.badge.style.opacity = '1'
 
     // Inicializar funcionalidades após preloader
-    setupMarqueeScrollSync();
-    setupBadgeColorDetection();
-  });
+    setupMarqueeScrollSync()
+    setupBadgeColorDetection()
+  })
 
   // Verificar reduced motion
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   if (prefersReducedMotion) {
     // Se reduced motion, iniciar tudo direto
-    startVideo(elements);
-    if (elements.fallbackImage) elements.fallbackImage.style.opacity = '1';
-    if (elements.logo) elements.logo.style.opacity = '1';
-    if (elements.badge) elements.badge.style.opacity = '1';
-    setupMarqueeScrollSync();
-    setupBadgeColorDetection();
+    startVideo(elements)
+    if (elements.fallbackImage) elements.fallbackImage.style.opacity = '1'
+    if (elements.logo) elements.logo.style.opacity = '1'
+    if (elements.badge) elements.badge.style.opacity = '1'
+    setupMarqueeScrollSync()
+    setupBadgeColorDetection()
   } else {
     // Inicializar com vídeo, logo e badge ocultos
-    updateHeroContent(0, elements);
+    updateHeroContent(0, elements)
   }
 
   // Inicializar indicador mobile (funciona independente)
-  setupMobileScrollIndicator();
+  setupMobileScrollIndicator()
 
   // Se reduced motion, inicializar mobile indicator
   if (prefersReducedMotion) {
-    const indicator = document.getElementById('mobile-scroll-indicator');
+    const indicator = document.getElementById('mobile-scroll-indicator')
     if (indicator && window.innerWidth < 1024) {
       setTimeout(() => {
-        indicator.style.opacity = '1';
-      }, 1000);
+        indicator.style.opacity = '1'
+      }, 1000)
     }
   }
 </script>

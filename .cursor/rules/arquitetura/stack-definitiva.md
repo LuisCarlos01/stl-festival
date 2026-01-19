@@ -122,6 +122,7 @@ TypeScript: Sim (recomendado)
 2. **Framer Motion** → Apenas se CSS não for suficiente
 
 **Exemplo**:
+
 ```css
 /* ✅ Correto: CSS para hover simples */
 .button {
@@ -134,10 +135,7 @@ TypeScript: Sim (recomendado)
 
 ```tsx
 // ✅ Correto: Framer Motion para animação complexa
-<motion.div
-  animate={{ x: 100, opacity: 0 }}
-  transition={{ type: 'spring', stiffness: 100 }}
-/>
+<motion.div animate={{ x: 100, opacity: 0 }} transition={{ type: 'spring', stiffness: 100 }} />
 ```
 
 ```tsx
@@ -180,10 +178,10 @@ TypeScript: Sim (recomendado)
 1. **Sempre respeitar `prefers-reduced-motion`**
 
    ```tsx
-   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
    if (prefersReducedMotion) {
      // Pular animação ou usar versão simplificada
-     return null;
+     return null
    }
    ```
 
@@ -192,7 +190,7 @@ TypeScript: Sim (recomendado)
    ```tsx
    // ✅ Correto
    <motion.div animate={{ x: 100, opacity: 0.5 }} />
-   
+
    // ❌ Proibido
    <motion.div animate={{ left: 100, width: 200 }} />
    ```
@@ -276,18 +274,22 @@ Preciso adicionar interatividade/animação?
 ### Exemplos Práticos
 
 **Exemplo 1: Botão com hover**
+
 - ✅ **Solução**: CSS (`:hover`, `transition`)
 - ❌ **Errado**: React + Framer Motion
 
 **Exemplo 2: Preloader com scroll controlado**
+
 - ✅ **Solução**: React + Framer Motion (já implementado)
 - ✅ **Correto**: Precisa de estado, hooks, animações complexas
 
 **Exemplo 3: Hero section com fade-in**
+
 - ✅ **Solução**: CSS (`@keyframes`, `animation`)
 - ❌ **Errado**: Framer Motion (overengineering)
 
 **Exemplo 4: Seção estática com texto**
+
 - ✅ **Solução**: Astro component puro (sem JS)
 - ❌ **Errado**: React component (desnecessário)
 

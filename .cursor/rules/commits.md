@@ -17,6 +17,7 @@ Todos os commits devem seguir o padrão **Conventional Commits** e estar em **in
 ## Tipos de Commit
 
 ### `feat`
+
 Nova funcionalidade para o usuário (não uma nova funcionalidade para build script)
 
 ```bash
@@ -25,6 +26,7 @@ feat(hero): implement hero section with fade-in animation
 ```
 
 ### `fix`
+
 Correção de bug para o usuário (não uma correção para build script)
 
 ```bash
@@ -33,6 +35,7 @@ fix(seo): correct meta tags for social sharing
 ```
 
 ### `docs`
+
 Mudanças apenas na documentação
 
 ```bash
@@ -41,6 +44,7 @@ docs(api): add JSDoc comments to Preloader component
 ```
 
 ### `style`
+
 Mudanças que não afetam o significado do código (espaço em branco, formatação, ponto e vírgula faltando, etc)
 
 ```bash
@@ -49,6 +53,7 @@ style(preloader): fix indentation
 ```
 
 ### `refactor`
+
 Refatoração de código de produção, ex. renomear uma variável
 
 ```bash
@@ -57,6 +62,7 @@ refactor: reorganize component structure
 ```
 
 ### `perf`
+
 Mudança de código que melhora performance
 
 ```bash
@@ -65,6 +71,7 @@ perf: reduce bundle size by code splitting
 ```
 
 ### `test`
+
 Adicionar testes ausentes ou corrigir testes existentes
 
 ```bash
@@ -73,6 +80,7 @@ test: add e2e tests for hero section
 ```
 
 ### `build`
+
 Mudanças que afetam o sistema de build ou dependências externas (ex: npm, gulp, webpack, etc)
 
 ```bash
@@ -81,6 +89,7 @@ build(deps): add framer-motion dependency
 ```
 
 ### `ci`
+
 Mudanças em arquivos e scripts de CI (ex: GitHub Actions, CircleCI, etc)
 
 ```bash
@@ -89,6 +98,7 @@ ci: configure automated testing workflow
 ```
 
 ### `chore`
+
 Outras mudanças que não modificam src ou arquivos de teste
 
 ```bash

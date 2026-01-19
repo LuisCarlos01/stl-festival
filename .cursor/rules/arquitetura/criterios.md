@@ -1,4 +1,3 @@
-
 # 📐 Cursor Rules — STL Festival Project
 
 > Estas regras são **obrigatórias** para qualquer agente acionado neste projeto.
@@ -51,13 +50,13 @@ src/
   pages/
   styles/
   utils/         → SOMENTE se houver helper real
-````
+```
 
 ### Regras
 
-* `ui/` **NÃO** pode conter componentes específicos
-* `sections/` **NÃO** pode conter componentes genéricos
-* `utils/` só pode existir se houver código real (YAGNI)
+- `ui/` **NÃO** pode conter componentes específicos
+- `sections/` **NÃO** pode conter componentes genéricos
+- `utils/` só pode existir se houver código real (YAGNI)
 
 ---
 
@@ -65,17 +64,17 @@ src/
 
 ### Single Responsibility — SOLID (S)
 
-* Um componente = **uma responsabilidade**
-* Se faz duas coisas não relacionadas → está errado
+- Um componente = **uma responsabilidade**
+- Se faz duas coisas não relacionadas → está errado
 
 ### Interface Segregation — SOLID (I)
 
-* Props devem ser:
+- Props devem ser:
+  - específicas
+  - mínimas
+  - explícitas
 
-  * específicas
-  * mínimas
-  * explícitas
-* Props genéricas ou “catch-all” são proibidas
+- Props genéricas ou “catch-all” são proibidas
 
 ```ts
 // ✅ Correto
@@ -97,30 +96,29 @@ interface ComponentProps {
 
 ### Tamanho
 
-* Funções: **máx. 30 linhas**
-* Componentes: **máx. 200 linhas**
-* Se ultrapassar → extrair lógica **incrementalmente**
+- Funções: **máx. 30 linhas**
+- Componentes: **máx. 200 linhas**
+- Se ultrapassar → extrair lógica **incrementalmente**
 
 ### Nomes
 
-* Nomes devem ser **descritivos e intencionais**
-* Proibido:
-
-  * `data`
-  * `item`
-  * `handler`
-  * `temp`
-  * `foo`
+- Nomes devem ser **descritivos e intencionais**
+- Proibido:
+  - `data`
+  - `item`
+  - `handler`
+  - `temp`
+  - `foo`
 
 ### Código morto
 
-* Código comentado é **proibido**
-* Se não é usado → remover
+- Código comentado é **proibido**
+- Se não é usado → remover
 
 ### DRY (com moderação)
 
-* Só abstrair após **3 repetições reais**
-* Duplicação controlada > abstração prematura
+- Só abstrair após **3 repetições reais**
+- Duplicação controlada > abstração prematura
 
 ---
 
@@ -128,33 +126,26 @@ interface ComponentProps {
 
 ### Regras
 
-* Recursos acima da dobra devem usar `preload`
-* Componentes abaixo da dobra devem usar:
+- Recursos acima da dobra devem usar `preload`
+- Componentes abaixo da dobra devem usar:
+  - `client:visible` ou `client:idle`
 
-  * `client:visible` ou `client:idle`
-* Imagens devem sempre conter:
-
-  * `loading`
-  * `decoding`
-  * `width`
-  * `height`
-  * `alt`
+- Imagens devem sempre conter:
+  - `loading`
+  - `decoding`
+  - `width`
+  - `height`
+  - `alt`
 
 ```astro
-<img
-  loading="lazy"
-  decoding="async"
-  width="..."
-  height="..."
-  alt="..."
-/>
+<img loading="lazy" decoding="async" width="..." height="..." alt="..." />
 ```
 
 ### Métricas-alvo
 
-* LCP < 2.5s
-* Lighthouse Performance > 90
-* Bundle inicial < 200kb (gzipped)
+- LCP < 2.5s
+- Lighthouse Performance > 90
+- Bundle inicial < 200kb (gzipped)
 
 ---
 
@@ -162,41 +153,38 @@ interface ComponentProps {
 
 ### HTML
 
-* Usar sempre HTML semântico:
-
-  * `header`, `main`, `section`, `nav`, `footer`
+- Usar sempre HTML semântico:
+  - `header`, `main`, `section`, `nav`, `footer`
 
 ### Interação
 
-* Todo elemento interativo deve:
-
-  * ser focável
-  * ter label acessível
-  * funcionar com teclado
+- Todo elemento interativo deve:
+  - ser focável
+  - ter label acessível
+  - funcionar com teclado
 
 ```astro
-<button aria-label="Abrir menu">
+<button aria-label="Abrir menu"></button>
 ```
 
 ### Reduced Motion
 
-* TODAS as animações devem respeitar:
-
-  * `prefers-reduced-motion`
+- TODAS as animações devem respeitar:
+  - `prefers-reduced-motion`
 
 ### Contraste
 
-* Texto normal: **mín. 4.5:1**
-* Contraste insuficiente é bug crítico
+- Texto normal: **mín. 4.5:1**
+- Contraste insuficiente é bug crítico
 
 ---
 
 ## 🛠️ 8. Tooling (Obrigatório)
 
-* ESLint deve passar sem erros
-* Prettier deve formatar todo o código
-* Husky + lint-staged **não podem ser burlados**
-* Script obrigatório:
+- ESLint deve passar sem erros
+- Prettier deve formatar todo o código
+- Husky + lint-staged **não podem ser burlados**
+- Script obrigatório:
 
 ```json
 "validate": "npm run format:check && npm run lint && npm run build"
@@ -208,12 +196,12 @@ interface ComponentProps {
 
 O agente **NÃO pode**:
 
-* Criar abstrações “para o futuro”
-* Introduzir novas dependências sem justificativa clara
-* Aplicar SOLID completo (O, L, D)
-* Criar testes para componentes puramente visuais
-* Criar estado global
-* Refatorar grandes áreas sem dor real
+- Criar abstrações “para o futuro”
+- Introduzir novas dependências sem justificativa clara
+- Aplicar SOLID completo (O, L, D)
+- Criar testes para componentes puramente visuais
+- Criar estado global
+- Refatorar grandes áreas sem dor real
 
 ---
 
@@ -235,7 +223,4 @@ Antes de sugerir QUALQUER mudança, o agente deve responder internamente:
 > **“Landing page não é sistema enterprise.”**
 > **“Simplicidade intencional vence complexidade desnecessária.”**
 
-
 ---
-
-

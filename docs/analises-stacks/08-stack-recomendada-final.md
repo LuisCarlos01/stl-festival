@@ -52,6 +52,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### 3. Performance Excelente
 
 **Métricas projetadas**:
+
 - Bundle inicial: **~125-130kb** (65% do limite de 200kb)
 - LCP estimado: **< 2.0s** ✅
 - TTI estimado: **< 3.0s** ✅
@@ -65,6 +66,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### 4. SEO Garantido
 
 **Astro SSG** garante:
+
 - ✅ Conteúdo crítico renderizado no servidor
 - ✅ HTML estático entregue via CDN
 - ✅ Meta tags dinâmicas suportadas
@@ -78,6 +80,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### 5. Responsividade Mobile-First
 
 **Tailwind CSS** garante:
+
 - ✅ Mobile-first por design
 - ✅ Breakpoints bem definidos
 - ✅ Touch-friendly por padrão
@@ -90,6 +93,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### 6. Developer Experience Excelente
 
 **Vantagens**:
+
 - ✅ Preloader pronto (DX imediato)
 - ✅ Framer Motion tem API declarativa excelente
 - ✅ React islands bem documentado
@@ -115,10 +119,8 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 
 1. **Bundle ~10kb maior**: Framer Motion (~50kb) vs GSAP (~40kb)
    - **Justificativa**: Preloader pronto compensa os 10kb extras
-   
 2. **Overengineering potencial**: Framer Motion pode ser excesso para animações simples
    - **Mitigação**: Usar CSS para animações simples, Framer Motion apenas onde necessário
-   
 3. **50kb para uso pontual**: Framer Motion usado principalmente no Preloader
    - **Justificativa**: Preloader é obrigatório e já está pronto
 
@@ -129,12 +131,14 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### ✅ MANTER Preloader Atual (Framer Motion)
 
 **Motivos**:
+
 1. Código já implementado e testado
 2. Zero esforço de desenvolvimento
 3. Funcionalidade completa (scroll control, reduced motion, mobile auto-play)
 4. Performance excelente
 
 **Não reescrever** porque:
+
 - Esforço de reescrita (4-12h) não compensa ganho de ~10kb
 - Risco de introduzir bugs
 - Preloader funciona perfeitamente
@@ -146,27 +150,30 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 ### Fase 1: Setup Inicial (1-2 dias)
 
 1. **Inicializar projeto Astro**:
+
    ```bash
    npm create astro@latest stl-festival
    cd stl-festival
    ```
 
 2. **Instalar dependências**:
+
    ```bash
    npm install react react-dom framer-motion
    npm install -D @astro/react tailwindcss
    ```
 
 3. **Configurar Astro** (`astro.config.mjs`):
+
    ```javascript
-   import { defineConfig } from 'astro/config';
-   import react from '@astro/react';
-   import tailwind from '@astrojs/tailwind';
+   import { defineConfig } from 'astro/config'
+   import react from '@astro/react'
+   import tailwind from '@astrojs/tailwind'
 
    export default defineConfig({
      integrations: [react(), tailwind()],
      output: 'static', // SSG
-   });
+   })
    ```
 
 4. **Configurar Tailwind** (`tailwind.config.mjs`):
@@ -177,7 +184,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
        extend: {},
      },
      plugins: [],
-   };
+   }
    ```
 
 ---
@@ -190,13 +197,14 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
    - Instalar dependências se necessário
 
 2. **Usar no Astro**:
+
    ```astro
    ---
-   import Preloader from '../components/Preloader';
+   import Preloader from '../components/Preloader'
    ---
 
-   <Preloader 
-     client:load 
+   <Preloader
+     client:load
      logoSrc="/logo.png"
      phraseTop="Bem-vindo ao STL Festival"
      phraseBottom="Role para começar"
@@ -241,6 +249,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 **Impacto**: Médio
 
 **Mitigação**:
+
 - Monitorar bundle size em cada PR
 - Usar `bundlephobia` para verificar novas dependências
 - Code splitting agressivo
@@ -254,6 +263,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 **Impacto**: Baixo
 
 **Mitigação**:
+
 - **Regra**: CSS para animações simples, Framer Motion apenas quando necessário
 - Code review para evitar uso desnecessário
 - Documentar quando usar cada abordagem
@@ -266,6 +276,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 **Impacto**: Médio
 
 **Mitigação**:
+
 - Lighthouse em CI/CD (bloquear se Performance < 90)
 - Performance budget definido
 - Monitoramento contínuo de Core Web Vitals
@@ -280,6 +291,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 **Alternativa**: Migrar para **Caminho 1** (Astro + React + GSAP)
 
 **Quando considerar**:
+
 - Bundle ultrapassar 180kb
 - Performance Lighthouse < 90
 - LCP > 2.5s
@@ -293,6 +305,7 @@ A análise comparativa do Gate 2 mostrou que esta stack tem o **score mais alto*
 **Alternativa**: Migrar para **Caminho 5** (Astro + Vanilla + GSAP)
 
 **Quando considerar**:
+
 - Performance absolutamente crítica
 - Bundle precisa ser mínimo
 - Equipe confortável com vanilla JS

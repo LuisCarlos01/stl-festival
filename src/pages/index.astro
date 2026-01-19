@@ -4,14 +4,14 @@
  * Página principal com todas as seções do festival
  */
 
- import BaseLayout from '../layouts/BaseLayout.astro';
-import Preloader from '../components/Preloader.tsx';
-import Hero from '../components/sections/Hero.astro';
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Preloader from '../components/Preloader.tsx'
+import Hero from '../components/sections/Hero.astro'
 
 // URL do video Cloudinary
 const videoUrl =
   import.meta.env.CLOUDINARY_VIDEO_URL ||
-  'https://res.cloudinary.com/dazkdemvu/video/upload/v1768415565/stl-festival/videos/hero.mp4';
+  'https://res.cloudinary.com/dazkdemvu/video/upload/v1768415565/stl-festival/videos/hero.mp4'
 ---
 
 <BaseLayout>
@@ -27,28 +27,28 @@ const videoUrl =
   <Hero videoUrl={videoUrl} />
 
   <!-- Placeholder para próximas seções (Sprint 2) -->
-  <section id="sobre" class="py-20 bg-white min-h-screen">
+  <section id="sobre" class="min-h-screen bg-white py-20">
     <div class="container-responsive text-center">
       <h2 class="font-display text-primary-indigo mb-4">Sobre o STL Festival</h2>
       <p class="text-secondary-green">Em breve...</p>
     </div>
   </section>
 
-  <section id="lineup" class="py-20 bg-neutral-cream min-h-screen">
+  <section id="lineup" class="bg-neutral-cream min-h-screen py-20">
     <div class="container-responsive text-center">
       <h2 class="font-display text-primary-indigo mb-4">Line-up</h2>
       <p class="text-secondary-green">Em breve...</p>
     </div>
   </section>
 
-  <section id="ingressos" class="py-20 bg-primary-indigo min-h-screen">
+  <section id="ingressos" class="bg-primary-indigo min-h-screen py-20">
     <div class="container-responsive text-center">
-      <h2 class="font-display text-white mb-4">Ingressos</h2>
+      <h2 class="font-display mb-4 text-white">Ingressos</h2>
       <p class="text-white/80">Em breve...</p>
     </div>
   </section>
 
-  <section id="playlist" class="py-20 bg-neutral-cream min-h-screen">
+  <section id="playlist" class="bg-neutral-cream min-h-screen py-20">
     <div class="container-responsive text-center">
       <h2 class="font-display text-primary-indigo mb-4">Playlist Oficial</h2>
       <p class="text-secondary-green">Em breve...</p>

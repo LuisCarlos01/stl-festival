@@ -42,6 +42,7 @@ TOTAL APÓS LAZY LOAD:           ~115-130kb (Astro já lazy loads islands)
 ```
 
 **Análise**:
+
 - ✅ Dentro do limite de 200kb
 - ✅ React apenas onde necessário (islands)
 - ✅ GSAP pode ser lazy loaded se necessário
@@ -79,6 +80,7 @@ TOTAL APÓS LAZY LOAD:           ~125-130kb (islands já lazy)
 ```
 
 **Análise**:
+
 - ✅ Dentro do limite de 200kb
 - ✅ Framer Motion é maior que GSAP (~10kb diferença)
 - ✅ Preloader já pronto (zero esforço)
@@ -117,6 +119,7 @@ TOTAL APÓS LAZY LOAD:           ~165-170kb
 ```
 
 **Análise**:
+
 - ⚠️ Próximo do limite de 200kb (~85% do limite)
 - ❌ **DUPLICAÇÃO**: 90kb de libs de animação
 - ❌ Overengineering claro
@@ -156,6 +159,7 @@ TOTAL APÓS LAZY LOAD:           ~155-160kb (RSC reduz bundle)
 ```
 
 **Análise**:
+
 - ⚠️ Próximo do limite (~85% do limite)
 - ⚠️ React full (não islands) = overhead maior
 - ✅ RSC pode reduzir bundle inicial
@@ -191,6 +195,7 @@ TOTAL APÓS LAZY LOAD:           ~70-75kb
 ```
 
 **Análise**:
+
 - ✅ **MELHOR PERFORMANCE**: ~70-75kb (35% do limite)
 - ✅ Zero overhead de framework JS
 - ✅ Máxima performance possível
@@ -255,6 +260,7 @@ TOTAL APÓS LAZY LOAD:           ~55-70kb
 ```
 
 **Análise**:
+
 - ✅ Excelente performance (55-95kb dependendo da lib)
 - ✅ Svelte é muito leve
 - ✅ Svelte Motion é menor que GSAP
@@ -264,15 +270,15 @@ TOTAL APÓS LAZY LOAD:           ~55-70kb
 
 ## Comparação Visual
 
-| Caminho | Bundle Inicial | % do Limite | Ranking |
-|---------|---------------|-------------|---------|
-| 5. Astro + Vanilla + GSAP | ~70-75kb | 35% | 🥇 1º |
-| 6B. SvelteKit + Svelte Motion | ~55-70kb | 28-35% | 🥇 1º |
-| 6A. SvelteKit + GSAP | ~80-95kb | 40-48% | 🥈 2º |
-| 1. Astro + React + GSAP | ~115-130kb | 58-65% | 🥉 3º |
-| 2. Astro + React + Framer | ~125-130kb | 63-65% | 🥉 3º |
-| 4. Next.js + Framer | ~165-170kb | 83-85% | ⚠️ 4º |
-| 3. Astro + GSAP + Framer | ~165-170kb | 83-85% | ❌ 5º |
+| Caminho                       | Bundle Inicial | % do Limite | Ranking |
+| ----------------------------- | -------------- | ----------- | ------- |
+| 5. Astro + Vanilla + GSAP     | ~70-75kb       | 35%         | 🥇 1º   |
+| 6B. SvelteKit + Svelte Motion | ~55-70kb       | 28-35%      | 🥇 1º   |
+| 6A. SvelteKit + GSAP          | ~80-95kb       | 40-48%      | 🥈 2º   |
+| 1. Astro + React + GSAP       | ~115-130kb     | 58-65%      | 🥉 3º   |
+| 2. Astro + React + Framer     | ~125-130kb     | 63-65%      | 🥉 3º   |
+| 4. Next.js + Framer           | ~165-170kb     | 83-85%      | ⚠️ 4º   |
+| 3. Astro + GSAP + Framer      | ~165-170kb     | 83-85%      | ❌ 5º   |
 
 ---
 
@@ -280,15 +286,15 @@ TOTAL APÓS LAZY LOAD:           ~55-70kb
 
 ### Espaço Disponível para Crescimento
 
-| Caminho | Bundle Atual | Espaço Restante | Risco de Crescimento |
-|---------|--------------|-----------------|----------------------|
-| 5. Vanilla + GSAP | ~75kb | ~125kb (63%) | ✅ Baixo |
-| 6B. SvelteKit + Motion | ~70kb | ~130kb (65%) | ✅ Baixo |
-| 6A. SvelteKit + GSAP | ~95kb | ~105kb (53%) | ✅ Baixo |
-| 1. Astro + React + GSAP | ~130kb | ~70kb (35%) | ⚠️ Médio |
-| 2. Astro + React + Framer | ~130kb | ~70kb (35%) | ⚠️ Médio |
-| 4. Next.js + Framer | ~170kb | ~30kb (15%) | ⚠️ Alto |
-| 3. GSAP + Framer | ~170kb | ~30kb (15%) | ❌ Muito Alto |
+| Caminho                   | Bundle Atual | Espaço Restante | Risco de Crescimento |
+| ------------------------- | ------------ | --------------- | -------------------- |
+| 5. Vanilla + GSAP         | ~75kb        | ~125kb (63%)    | ✅ Baixo             |
+| 6B. SvelteKit + Motion    | ~70kb        | ~130kb (65%)    | ✅ Baixo             |
+| 6A. SvelteKit + GSAP      | ~95kb        | ~105kb (53%)    | ✅ Baixo             |
+| 1. Astro + React + GSAP   | ~130kb       | ~70kb (35%)     | ⚠️ Médio             |
+| 2. Astro + React + Framer | ~130kb       | ~70kb (35%)     | ⚠️ Médio             |
+| 4. Next.js + Framer       | ~170kb       | ~30kb (15%)     | ⚠️ Alto              |
+| 3. GSAP + Framer          | ~170kb       | ~30kb (15%)     | ❌ Muito Alto        |
 
 **Observação**: Caminhos com menos espaço restante têm maior risco de ultrapassar 200kb ao adicionar features.
 
@@ -300,27 +306,27 @@ TOTAL APÓS LAZY LOAD:           ~55-70kb
 
 Estimativas baseadas em bundle size:
 
-| Caminho | Bundle | LCP Estimado | Ranking |
-|---------|--------|--------------|---------|
-| 5. Vanilla + GSAP | ~75kb | < 1.5s | 🥇 |
-| 6B. SvelteKit + Motion | ~70kb | < 1.5s | 🥇 |
-| 6A. SvelteKit + GSAP | ~95kb | < 1.8s | 🥈 |
-| 1. Astro + React + GSAP | ~130kb | < 2.0s | 🥈 |
-| 2. Astro + React + Framer | ~130kb | < 2.0s | 🥈 |
-| 4. Next.js + Framer | ~170kb | < 2.5s | 🥉 |
-| 3. GSAP + Framer | ~170kb | < 2.5s | ❌ |
+| Caminho                   | Bundle | LCP Estimado | Ranking |
+| ------------------------- | ------ | ------------ | ------- |
+| 5. Vanilla + GSAP         | ~75kb  | < 1.5s       | 🥇      |
+| 6B. SvelteKit + Motion    | ~70kb  | < 1.5s       | 🥇      |
+| 6A. SvelteKit + GSAP      | ~95kb  | < 1.8s       | 🥈      |
+| 1. Astro + React + GSAP   | ~130kb | < 2.0s       | 🥈      |
+| 2. Astro + React + Framer | ~130kb | < 2.0s       | 🥈      |
+| 4. Next.js + Framer       | ~170kb | < 2.5s       | 🥉      |
+| 3. GSAP + Framer          | ~170kb | < 2.5s       | ❌      |
 
 ### TTI (Time to Interactive)
 
-| Caminho | Bundle | TTI Estimado | Ranking |
-|---------|--------|--------------|---------|
-| 5. Vanilla + GSAP | ~75kb | < 2.0s | 🥇 |
-| 6B. SvelteKit + Motion | ~70kb | < 2.0s | 🥇 |
-| 6A. SvelteKit + GSAP | ~95kb | < 2.5s | 🥈 |
-| 1. Astro + React + GSAP | ~130kb | < 3.0s | 🥈 |
-| 2. Astro + React + Framer | ~130kb | < 3.0s | 🥈 |
-| 4. Next.js + Framer | ~170kb | < 3.5s | 🥉 |
-| 3. GSAP + Framer | ~170kb | < 3.5s | ❌ |
+| Caminho                   | Bundle | TTI Estimado | Ranking |
+| ------------------------- | ------ | ------------ | ------- |
+| 5. Vanilla + GSAP         | ~75kb  | < 2.0s       | 🥇      |
+| 6B. SvelteKit + Motion    | ~70kb  | < 2.0s       | 🥇      |
+| 6A. SvelteKit + GSAP      | ~95kb  | < 2.5s       | 🥈      |
+| 1. Astro + React + GSAP   | ~130kb | < 3.0s       | 🥈      |
+| 2. Astro + React + Framer | ~130kb | < 3.0s       | 🥈      |
+| 4. Next.js + Framer       | ~170kb | < 3.5s       | 🥉      |
+| 3. GSAP + Framer          | ~170kb | < 3.5s       | ❌      |
 
 ---
 

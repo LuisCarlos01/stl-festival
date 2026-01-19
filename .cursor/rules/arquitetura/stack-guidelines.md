@@ -95,7 +95,7 @@
 1. **Sempre respeitar `prefers-reduced-motion`**
 
    ```tsx
-   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
    if (prefersReducedMotion) {
      // Pular animação ou usar versão simplificada
    }
@@ -134,11 +134,11 @@
 
 ```tsx
 // ✅ Correto: Framer Motion em componente React
-import { motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion'
 
 export default function Preloader() {
-  const progress = useMotionValue(0);
-  return <motion.div animate={{ opacity: 1 }} />;
+  const progress = useMotionValue(0)
+  return <motion.div animate={{ opacity: 1 }} />
 }
 ```
 
@@ -157,10 +157,10 @@ export default function Preloader() {
 ```astro
 <!-- ✅ Correto: GSAP em componente Astro -->
 <script>
-  import { gsap } from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { gsap } from 'gsap'
+  import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger)
   // Animações scroll-driven aqui
 </script>
 ```

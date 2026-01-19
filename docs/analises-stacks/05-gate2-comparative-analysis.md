@@ -21,6 +21,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ GSAP excelente para animações imperativas (hero, scroll)
 - ✅ Preloader pode ser reescrito (viável, 4-8h)
 - ✅ Performance excelente das animações
@@ -36,6 +37,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 24/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first por design
 - ✅ Performance mobile excelente (menos JS)
 - ✅ Touch-friendly por padrão
@@ -51,6 +53,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 17/20
 
 **Análise**:
+
 - ✅ Astro simples e intuitivo
 - ✅ React islands bem documentado
 - ✅ GSAP poderosa mas curva de aprendizado
@@ -66,6 +69,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ Arquitetura clara (Astro + React islands)
 - ✅ Separação de responsabilidades bem definida
 - ✅ Menos complexidade que stack híbrida completa
@@ -81,6 +85,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 12/15
 
 **Análise**:
+
 - ✅ Ganha: Performance máxima, SEO excelente
 - ✅ Ganha: Bundle controlado (~130kb)
 - ✅ Ganha: Flexibilidade React onde necessário
@@ -102,6 +107,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 19/20
 
 **Análise**:
+
 - ✅ Framer Motion excelente para animações declarativas
 - ✅ Preloader já pronto (zero esforço)
 - ✅ Performance excelente
@@ -117,6 +123,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 24/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ✅ Performance mobile boa
 - ✅ Touch-friendly
@@ -132,6 +139,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 19/20
 
 **Análise**:
+
 - ✅ Preloader já pronto (vantagem enorme)
 - ✅ Framer Motion tem DX excelente
 - ✅ React islands bem documentado
@@ -147,6 +155,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 16/20
 
 **Análise**:
+
 - ✅ Preloader não precisa reescrita
 - ⚠️ Framer Motion pode ser excesso para resto do projeto
 - ⚠️ Bundle maior que necessário (~130kb vs ~75kb)
@@ -162,6 +171,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 13/15
 
 **Análise**:
+
 - ✅ Ganha: Preloader pronto, zero esforço
 - ✅ Ganha: DX excelente
 - ✅ Ganha: Performance excelente
@@ -183,6 +193,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 15/20
 
 **Análise**:
+
 - ✅ Flexibilidade teórica máxima
 - ✅ Preloader pronto
 - ❌ **DUPLICAÇÃO**: Duas libs fazendo trabalho similar
@@ -198,6 +209,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 23/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ⚠️ Bundle grande (~170kb) pode impactar mobile
 - ✅ Touch-friendly
@@ -212,6 +224,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 14/20
 
 **Análise**:
+
 - ✅ Preloader pronto
 - ❌ Decisão constante: qual lib usar?
 - ❌ Complexidade arquitetural aumentada
@@ -227,6 +240,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 10/20
 
 **Análise**:
+
 - ❌ **COMPLEXIDADE DESNECESSÁRIA**
 - ❌ Duas libs fazendo trabalho similar
 - ❌ Violação do princípio YAGNI
@@ -242,6 +256,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 8/15
 
 **Análise**:
+
 - ✅ Ganha: Flexibilidade teórica máxima
 - ❌ Perde: ~90kb de bundle (quase metade do limite)
 - ❌ Perde: Complexidade arquitetural
@@ -265,6 +280,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ Framer Motion excelente
 - ✅ Preloader quase pronto (ajustes menores)
 - ✅ Performance boa
@@ -279,6 +295,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 22/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ⚠️ React full pode ter overhead em mobile
 - ✅ Touch-friendly
@@ -294,6 +311,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ Ecossistema React enorme
 - ✅ Next.js muito maduro
 - ✅ Documentação excelente
@@ -309,6 +327,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 15/20
 
 **Análise**:
+
 - ⚠️ React full pode ser excesso para site institucional
 - ⚠️ RSC adiciona complexidade
 - ⚠️ Overhead de hidratação maior que Astro
@@ -324,6 +343,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 11/15
 
 **Análise**:
+
 - ✅ Ganha: Ecossistema React completo
 - ✅ Ganha: Preloader quase pronto
 - ✅ Ganha: Flexibilidade máxima
@@ -345,6 +365,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 16/20
 
 **Análise**:
+
 - ✅ GSAP excelente para animações
 - ⚠️ Preloader precisa reescrita completa (8-12h)
 - ✅ Performance excelente
@@ -359,6 +380,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 25/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ✅ **MELHOR** performance mobile (menos JS)
 - ✅ Touch-friendly
@@ -374,6 +396,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 14/20
 
 **Análise**:
+
 - ✅ Máxima simplicidade
 - ✅ Bundle mínimo
 - ❌ Preloader reescrita mais complexa (8-12h)
@@ -389,6 +412,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 17/20
 
 **Análise**:
+
 - ✅ Arquitetura mais simples possível
 - ✅ Menos dependências
 - ✅ Menos complexidade
@@ -404,6 +428,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 13/15
 
 **Análise**:
+
 - ✅ Ganha: Bundle mínimo (~75kb)
 - ✅ Ganha: Performance máxima
 - ✅ Ganha: Simplicidade arquitetural
@@ -425,6 +450,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 16/20
 
 **Análise**:
+
 - ✅ GSAP excelente
 - ⚠️ Preloader precisa reescrita completa (8-12h)
 - ✅ Performance excelente
@@ -439,6 +465,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 24/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ✅ Performance mobile excelente
 - ✅ Touch-friendly
@@ -454,6 +481,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 15/20
 
 **Análise**:
+
 - ✅ Svelte tem DX excelente
 - ✅ Código mais limpo que React
 - ❌ Ecossistema menor que React
@@ -469,6 +497,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ Arquitetura moderna e limpa
 - ✅ Menos overhead que React
 - ✅ Fácil adicionar features
@@ -483,6 +512,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 12/15
 
 **Análise**:
+
 - ✅ Ganha: Bundle muito leve (~90kb)
 - ✅ Ganha: Performance excelente
 - ✅ Ganha: DX moderna
@@ -504,6 +534,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 17/20
 
 **Análise**:
+
 - ✅ Svelte Motion bom para animações
 - ✅ Transições nativas do Svelte poderosas
 - ⚠️ Preloader precisa reescrita completa (8-12h)
@@ -518,6 +549,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 25/25
 
 **Análise**:
+
 - ✅ Tailwind CSS mobile-first
 - ✅ **MELHOR** performance mobile
 - ✅ Touch-friendly
@@ -533,6 +565,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 15/20
 
 **Análise**:
+
 - ✅ Svelte tem DX excelente
 - ✅ Código mais limpo
 - ❌ Ecossistema menor
@@ -548,6 +581,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 18/20
 
 **Análise**:
+
 - ✅ Arquitetura moderna e limpa
 - ✅ Menos overhead
 - ✅ Fácil adicionar features
@@ -562,6 +596,7 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 **Score**: 13/15
 
 **Análise**:
+
 - ✅ Ganha: Bundle mínimo (~70kb)
 - ✅ Ganha: Performance excelente
 - ✅ Ganha: DX moderna
@@ -578,15 +613,15 @@ Para cada caminho aprovado no Gate 1, avaliar nos seguintes critérios (com peso
 
 ## Ranking Final Gate 2
 
-| Posição | Caminho | Score | Observação |
-|---------|---------|-------|------------|
-| 🥇 1º | **Caminho 2**: Astro + React + Framer Motion | **91/100** | Preloader pronto, excelente equilíbrio |
-| 🥈 2º | **Caminho 6B**: SvelteKit + Svelte Motion | **88/100** | Melhor performance, mas aprendizado |
-| 🥉 3º | **Caminho 1**: Astro + React + GSAP | **89/100** | Bom equilíbrio, precisa reescrita |
-| 4º | **Caminho 5**: Astro + Vanilla + GSAP | **85/100** | Melhor performance, mais trabalho |
-| 5º | **Caminho 6A**: SvelteKit + GSAP | **85/100** | Boa performance, aprendizado |
-| 6º | **Caminho 4**: Next.js + Framer Motion | **84/100** | Ecossistema grande, bundle grande |
-| ❌ 7º | **Caminho 3**: GSAP + Framer Motion | **70/100** | Overengineering, reprovado |
+| Posição | Caminho                                      | Score      | Observação                             |
+| ------- | -------------------------------------------- | ---------- | -------------------------------------- |
+| 🥇 1º   | **Caminho 2**: Astro + React + Framer Motion | **91/100** | Preloader pronto, excelente equilíbrio |
+| 🥈 2º   | **Caminho 6B**: SvelteKit + Svelte Motion    | **88/100** | Melhor performance, mas aprendizado    |
+| 🥉 3º   | **Caminho 1**: Astro + React + GSAP          | **89/100** | Bom equilíbrio, precisa reescrita      |
+| 4º      | **Caminho 5**: Astro + Vanilla + GSAP        | **85/100** | Melhor performance, mais trabalho      |
+| 5º      | **Caminho 6A**: SvelteKit + GSAP             | **85/100** | Boa performance, aprendizado           |
+| 6º      | **Caminho 4**: Next.js + Framer Motion       | **84/100** | Ecossistema grande, bundle grande      |
+| ❌ 7º   | **Caminho 3**: GSAP + Framer Motion          | **70/100** | Overengineering, reprovado             |
 
 ---
 

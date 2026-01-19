@@ -141,7 +141,6 @@ Para cada caminho, avaliar na seguinte ordem de prioridade:
 #### CRITÉRIOS ELIMINATÓRIOS (Gate 1 - Obrigatórios)
 
 1. **Performance** ⚡
-
    - Core Web Vitals (LCP, FID, CLS)
    - Bundle size inicial e total
    - Runtime performance com animações
@@ -149,7 +148,6 @@ Para cada caminho, avaliar na seguinte ordem de prioridade:
    - **SE NÃO PASSAR: CAMINHO DESCARTADO**
 
 2. **SEO** 🔍
-
    - SSR/SSG capability
    - Indexabilidade
    - Meta tags e structured data
@@ -159,26 +157,22 @@ Para cada caminho, avaliar na seguinte ordem de prioridade:
 #### CRITÉRIOS COMPARATIVOS (Gate 2 - Para caminhos aprovados)
 
 3. **Fit com Requisitos Interativos** 🎨
-
    - Capacidade de criar experiências imersivas
    - Suporte a animações complexas e storytelling
    - Flexibilidade para interatividade avançada
 
 4. **Developer Experience** 👨‍💻
-
    - Curva de aprendizado (equipe já domina stack)
    - Produtividade no dia-a-dia
    - Manutenibilidade de longo prazo
    - Qualidade do ecossistema
 
 5. **Escalabilidade** 📈
-
    - Adicionar novas features sem refatoração
    - Crescimento do projeto
    - Complexidade arquitetural gerenciável
 
 6. **Trade-offs Explícitos** ⚖️
-
    - O que ganha
    - O que perde
    - Custos ocultos (bundle, runtime, manutenção)
@@ -211,26 +205,22 @@ A análise ToT explorará estratégias para resolver este paradoxo:
 Revisar especificamente:
 
 1. **Astro vs Natureza Interativa**
-
    - Astro é static-first
    - Projeto é interaction-first
    - Possível impedância ou sinergia perfeita?
 
 2. **GSAP + Framer Motion: Duplicação ou Complementaridade?**
-
    - Sobreposição de responsabilidades
    - Bundle duplicado (~100kb combinado)
    - Quando a duplicação se justifica
    - Impacto real em performance
 
 3. **React Islands vs SPA**
-
    - Pattern islands adequado para experiência imersiva?
    - Overhead de hidratação múltipla
    - Alternativas (SPA parcial, MPA com transições)
 
 4. **Tailwind para Animações?**
-
    - Tailwind é utility-first para layout/styling
    - Animações complexas com Tailwind são limitadas
    - Overlap com GSAP/Framer Motion

@@ -13,12 +13,13 @@ Este guia apresenta estratégias práticas para garantir que o site mantenha Per
 **Problema**: Preloader carrega no início, pode impactar LCP.
 
 **Solução**:
+
 ```javascript
 // Carregar Preloader apenas se necessário
 if (typeof window !== 'undefined' && !sessionStorage.getItem('preloader-shown')) {
   import('./Preloader').then(({ default: Preloader }) => {
     // Renderizar Preloader
-  });
+  })
 }
 ```
 
@@ -31,18 +32,20 @@ if (typeof window !== 'undefined' && !sessionStorage.getItem('preloader-shown'))
 **Problema**: Hero section acima da dobra precisa carregar rápido.
 
 **Solução**:
+
 ```astro
 <!-- Astro: Hero como componente estático -->
 <Hero client:load />
 ```
 
 **Ou com Next.js**:
+
 ```tsx
 // Next.js: Hero como Server Component quando possível
-import Hero from './Hero';
+import Hero from './Hero'
 
 export default function Page() {
-  return <Hero />; // Server Component
+  return <Hero /> // Server Component
 }
 ```
 
@@ -55,6 +58,7 @@ export default function Page() {
 **Problema**: Transições entre seções podem carregar JS desnecessário.
 
 **Solução**:
+
 ```astro
 <!-- Astro: Lazy load apenas quando visível -->
 <TransitionSection client:visible />
@@ -73,15 +77,15 @@ export default function Page() {
 ```javascript
 // Exemplo: GSAP apenas para Hero
 const loadHeroAnimation = async () => {
-  const { gsap } = await import('gsap');
+  const { gsap } = await import('gsap')
   // Inicializar animações do Hero
-};
+}
 
 // Exemplo: Framer Motion apenas para Preloader
 const loadPreloader = async () => {
-  const { motion } = await import('framer-motion');
+  const { motion } = await import('framer-motion')
   // Renderizar Preloader
-};
+}
 ```
 
 **Benefício**: Bundle inicial menor, animações carregadas sob demanda.
@@ -91,22 +95,24 @@ const loadPreloader = async () => {
 ### Dynamic Imports
 
 **Astro**:
+
 ```astro
 <script>
   import('./animations/hero').then(module => {
-    module.initHeroAnimations();
-  });
+    module.initHeroAnimations()
+  })
 </script>
 ```
 
 **Next.js**:
+
 ```tsx
-import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic'
 
 const AnimatedSection = dynamic(() => import('./AnimatedSection'), {
   loading: () => <SectionSkeleton />,
-  ssr: false // Se animação não precisa SSR
-});
+  ssr: false, // Se animação não precisa SSR
+})
 ```
 
 **Benefício**: Reduz bundle inicial significativamente.
@@ -118,36 +124,40 @@ const AnimatedSection = dynamic(() => import('./AnimatedSection'), {
 ### Propriedades Otimizadas
 
 **✅ Usar** (GPU-accelerated):
+
 - `transform` (translateX, translateY, scale, rotate)
 - `opacity`
 - `filter` (com moderação)
 
 **❌ Evitar** (causam reflow):
+
 - `width`, `height`
 - `top`, `left`, `right`, `bottom`
 - `margin`, `padding`
 - `background-color`
 
 **Exemplo GSAP**:
+
 ```javascript
 // ✅ Bom
 gsap.to('.element', {
-  x: 100,        // transform: translateX
-  y: 50,         // transform: translateY
+  x: 100, // transform: translateX
+  y: 50, // transform: translateY
   opacity: 0.5,
-  duration: 1
-});
+  duration: 1,
+})
 
 // ❌ Ruim
 gsap.to('.element', {
-  left: 100,     // causa reflow
-  top: 50,       // causa reflow
-  width: 200,    // causa reflow
-  duration: 1
-});
+  left: 100, // causa reflow
+  top: 50, // causa reflow
+  width: 200, // causa reflow
+  duration: 1,
+})
 ```
 
 **Exemplo Framer Motion**:
+
 ```tsx
 // ✅ Bom
 <motion.div
@@ -175,6 +185,7 @@ gsap.to('.element', {
 ### will-change com Moderação
 
 **Usar apenas quando necessário**:
+
 ```css
 .animating-element {
   will-change: transform, opacity;
@@ -187,10 +198,11 @@ gsap.to('.element', {
 ```
 
 **JavaScript**:
+
 ```javascript
-element.style.willChange = 'transform, opacity';
+element.style.willChange = 'transform, opacity'
 // Após animação
-element.style.willChange = 'auto';
+element.style.willChange = 'auto'
 ```
 
 **Benefício**: Browser otimiza antecipadamente, mas não mantém overhead desnecessário.
@@ -225,18 +237,20 @@ element.style.willChange = 'auto';
 ### Reduced Motion
 
 **Sempre respeitar**:
+
 ```javascript
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 if (prefersReducedMotion) {
   // Pular animações ou versão simplificada
-  return;
+  return
 }
 
 // Animações normais
 ```
 
 **CSS**:
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -257,6 +271,7 @@ if (prefersReducedMotion) {
 **Problema**: Hero section acima da dobra precisa carregar rápido.
 
 **Solução**:
+
 ```astro
 <!-- Astro: Otimização automática -->
 <img
@@ -271,10 +286,10 @@ if (prefersReducedMotion) {
 ```
 
 **Next.js**:
-```tsx
-import Image from 'next/image';
 
-<Image
+```tsx
+import Image from 'next/image'
+;<Image
   src="/hero.jpg"
   alt="STL Festival"
   width={1920}
@@ -291,11 +306,7 @@ import Image from 'next/image';
 ### Lazy Loading de Imagens Abaixo da Dobra
 
 ```astro
-<img
-  src="/section-image.jpg"
-  loading="lazy"
-  decoding="async"
-/>
+<img src="/section-image.jpg" loading="lazy" decoding="async" />
 ```
 
 **Benefício**: Não bloqueia renderização inicial.
@@ -305,11 +316,13 @@ import Image from 'next/image';
 ### Fontes Otimizadas
 
 **Preload de fontes críticas**:
+
 ```html
-<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/main.woff2" as="font" type="font/woff2" crossorigin />
 ```
 
 **Subset de fontes**:
+
 ```css
 @font-face {
   font-family: 'Main';
@@ -329,26 +342,22 @@ import Image from 'next/image';
 **Problema**: Re-renders desnecessários durante animações.
 
 **Solução**:
+
 ```tsx
 const AnimatedComponent = () => {
-  const progress = useMotionValue(0);
-  
+  const progress = useMotionValue(0)
+
   // Memoizar valores transformados
-  const opacity = useTransform(progress, [0, 100], [1, 0]);
-  const y = useTransform(progress, [0, 100], ['0%', '-100%']);
-  
+  const opacity = useTransform(progress, [0, 100], [1, 0])
+  const y = useTransform(progress, [0, 100], ['0%', '-100%'])
+
   // Memoizar callbacks
   const handleComplete = useCallback(() => {
     // Lógica
-  }, []);
-  
-  return (
-    <motion.div
-      style={{ opacity, y }}
-      onAnimationComplete={handleComplete}
-    />
-  );
-};
+  }, [])
+
+  return <motion.div style={{ opacity, y }} onAnimationComplete={handleComplete} />
+}
 ```
 
 **Benefício**: Menos re-renders = melhor performance.
@@ -360,14 +369,18 @@ const AnimatedComponent = () => {
 **Problema**: Criar novas timelines a cada render.
 
 **Solução**:
+
 ```javascript
 // Criar timeline uma vez
-const tl = gsap.timeline();
+const tl = gsap.timeline()
 
 // Reutilizar
 function animateHero() {
-  tl.to('.hero-title', { opacity: 1, duration: 1 })
-    .to('.hero-subtitle', { opacity: 1, duration: 1 }, '-=0.5');
+  tl.to('.hero-title', { opacity: 1, duration: 1 }).to(
+    '.hero-subtitle',
+    { opacity: 1, duration: 1 },
+    '-=0.5'
+  )
 }
 
 // Não recriar a cada vez
@@ -382,15 +395,16 @@ function animateHero() {
 ### Core Web Vitals
 
 **Implementar tracking**:
+
 ```javascript
 // web-vitals library
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals'
 
-getCLS(console.log);
-getFID(console.log);
-getFCP(console.log);
-getLCP(console.log);
-getTTFB(console.log);
+getCLS(console.log)
+getFID(console.log)
+getFCP(console.log)
+getLCP(console.log)
+getTTFB(console.log)
 ```
 
 **Benefício**: Dados reais para otimização contínua.
@@ -400,6 +414,7 @@ getTTFB(console.log);
 ### Performance Budget
 
 **Definir limites**:
+
 ```json
 {
   "budget": [

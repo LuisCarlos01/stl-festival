@@ -4,13 +4,13 @@
  * Inclui: SEO, meta tags, estrutura HTML, fontes, e scripts globais
  */
 
- import '../styles/global.css';
+import '../styles/global.css'
 
 interface Props {
-  title?: string;
-  description?: string;
-  image?: string;
-  canonical?: string;
+  title?: string
+  description?: string
+  image?: string
+  canonical?: string
 }
 
 const {
@@ -18,9 +18,9 @@ const {
   description = 'O STL Festival é mais do que música. É encontro, natureza, energia coletiva e som que atravessa o corpo. Sinta o clima do STL Festival em 06 de junho de 2026.',
   image = '/og-image.jpg',
   canonical = 'https://stlfestival.com.br',
-} = Astro.props;
+} = Astro.props
 
-const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festival`;
+const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festival`
 ---
 
 <!doctype html>
@@ -55,7 +55,7 @@ const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festi
     <!-- Performance: Preload recursos críticos acima da dobra -->
     <link rel="preload" as="image" href="/logo/logo-stl.svg" />
     <link rel="preload" as="image" href="/images/fallback-hero/foto-95.jpg" />
-    
+
     <!-- Preconnect para Cloudinary (melhora carregamento do vídeo) -->
     <link rel="preconnect" href="https://res.cloudinary.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
@@ -135,7 +135,7 @@ const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festi
     <!-- Scripts -->
     <script>
       // Prevent FOUC
-      document.documentElement.classList.add('loaded');
+      document.documentElement.classList.add('loaded')
 
       // Lazy load GSAP (apenas quando necessário)
       if ('IntersectionObserver' in window) {

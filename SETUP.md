@@ -2,7 +2,7 @@
 
 ## Pré-requisitos
 
-- Node.js 18+ 
+- Node.js 18+
 - npm ou yarn ou pnpm
 
 ## Passo a Passo
@@ -68,12 +68,13 @@ O Preloader está pronto e configurado para usar com Astro:
 **Localização**: `src/components/Preloader.tsx`
 
 **Uso no Astro**:
+
 ```astro
 ---
-import Preloader from '../components/Preloader';
+import Preloader from '../components/Preloader'
 ---
 
-<Preloader 
+<Preloader
   client:load
   logoSrc="/logo.png"
   phraseTop="Bem-vindo ao STL Festival"
@@ -82,6 +83,7 @@ import Preloader from '../components/Preloader';
 ```
 
 **Features**:
+
 - ✅ Cortinas verticais animadas
 - ✅ Scroll controlado (não move página)
 - ✅ Auto-play no mobile
@@ -105,6 +107,7 @@ import Preloader from '../components/Preloader';
 ### Preloader não aparece
 
 **Verificar**:
+
 1. Preloader está usando `client:load` no Astro?
 2. Logo existe no caminho especificado?
 3. Console do navegador tem erros?

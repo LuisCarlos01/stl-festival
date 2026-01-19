@@ -7,12 +7,12 @@
  */
 
 interface Props {
-  playlistUrl: string;
-  variant?: 'fixed' | 'inline';
-  position?: 'left' | 'right' | 'bottom';
-  size?: 'sm' | 'md' | 'lg';
-  showText?: boolean;
-  class?: string;
+  playlistUrl: string
+  variant?: 'fixed' | 'inline'
+  position?: 'left' | 'right' | 'bottom'
+  size?: 'sm' | 'md' | 'lg'
+  showText?: boolean
+  class?: string
 }
 
 const {
@@ -22,26 +22,26 @@ const {
   size = 'md',
   showText = true,
   class: className = '',
-} = Astro.props;
+} = Astro.props
 
 // Classes dinâmicas baseadas em props
 const positionClasses = {
   left: 'left-0', // Encosta no canto esquerdo (bookmark style)
   right: 'right-4 md:right-6',
   bottom: 'bottom-4 md:bottom-6',
-};
+}
 
 const sizeClasses = {
   sm: 'pl-5 pr-4 py-2.5 text-base min-h-[48px]',
   md: 'pl-7 pr-6 py-4 text-lg min-h-[56px]',
   lg: 'pl-8 pr-7 py-5 text-xl min-h-[64px]',
-};
+}
 
 const iconSizes = {
   sm: 'w-7 h-7',
   md: 'w-10 h-10',
   lg: 'w-12 h-12',
-};
+}
 
 const baseClasses = [
   'spotify-badge group',
@@ -55,12 +55,12 @@ const baseClasses = [
   'focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
   sizeClasses[size],
   className,
-];
+]
 
 if (variant === 'fixed') {
-  baseClasses.push(`fixed ${positionClasses[position]} top-1/2 -translate-y-1/2 z-20`);
+  baseClasses.push(`fixed ${positionClasses[position]} top-1/2 -translate-y-1/2 z-20`)
 } else {
-  baseClasses.push('relative');
+  baseClasses.push('relative')
 }
 ---
 
@@ -74,7 +74,7 @@ if (variant === 'fixed') {
   <!-- Texto primeiro (oculto em mobile se showText=true) -->
   {
     showText && (
-      <span class="spotify-text hidden sm:block font-body font-semibold text-white whitespace-nowrap leading-tight">
+      <span class="spotify-text hidden whitespace-nowrap font-body font-semibold leading-tight text-white sm:block">
         Playlist Oficial
       </span>
     )
@@ -97,7 +97,7 @@ if (variant === 'fixed') {
 
   <!-- Efeito de brilho no hover -->
   <span
-    class="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+    class="pointer-events-none absolute inset-0 rounded-full bg-white/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
     aria-hidden="true"></span>
 </a>
 
