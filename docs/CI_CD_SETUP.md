@@ -11,16 +11,19 @@ O projeto utiliza GitHub Actions para automação de CI/CD com deploy automátic
 ### CI Workflow (`.github/workflows/ci.yml`)
 
 **Gatilhos:**
+
 - Push em qualquer branch
 - Pull Requests para `main` ou `master`
 
 **Validações executadas:**
+
 1. ✅ ESLint (linting de código)
 2. ✅ Prettier (verificação de formatação)
 3. ✅ TypeScript (type checking)
 4. ✅ Build (compilação do projeto)
 
 **Características:**
+
 - Cache de dependências npm para acelerar execuções
 - Matrix strategy preparada para múltiplas versões do Node.js
 - Falha imediata se qualquer validação falhar
@@ -28,16 +31,19 @@ O projeto utiliza GitHub Actions para automação de CI/CD com deploy automátic
 ### CD Workflow (`.github/workflows/cd.yml`)
 
 **Gatilhos:**
+
 - Push para `main` ou `master` (production deploy)
 - Pull Requests (preview deploy)
 
 **Processo:**
+
 1. Build do projeto
 2. Deploy no Vercel:
    - **Preview Deploy**: Para PRs (comentário automático com URL)
    - **Production Deploy**: Para branch `main`
 
 **Secrets GitHub necessários:**
+
 - `VERCEL_TOKEN`: Token de deploy do Vercel
 - `VERCEL_ORG_ID`: ID da organização Vercel
 - `VERCEL_PROJECT_ID`: ID do projeto Vercel
@@ -79,6 +85,7 @@ npm install
    - Copie e adicione como secret
 
    **VERCEL_ORG_ID e VERCEL_PROJECT_ID:**
+
    ```bash
    # Instalar Vercel CLI globalmente
    npm install -g vercel
@@ -91,6 +98,7 @@ npm install
    # Ou executar:
    vercel --token=$VERCEL_TOKEN
    ```
+
    - Os IDs serão exibidos no output ou em `.vercel/project.json`
 
 ### 3. Configurar Branch Protection Rules
@@ -131,10 +139,172 @@ Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore
 ```
 
 **Exemplos:**
+
 - `feat(hero): add video autoplay on scroll`
 - `fix(preloader): resolve mobile detection issue`
 - `chore(deps): update framer-motion to 11.1.0`
 - `ci: add typecheck step to CI workflow`
+
+## Git Hooks (Husky)
+
+O projeto utiliza **Husky** para executar validações automáticas antes de commits e pushes, garantindo qualidade de código e padronização antes mesmo do código chegar ao CI.
+
+### Hooks Configurados
+
+#### 1. `pre-commit` - Validação Rápida
+
+Executado automaticamente antes de cada commit:
+
+- ✅ **Lint-staged**: Executa ESLint e Prettier apenas nos arquivos staged
+- ⚡ **Performance**: Rápido (2-5 segundos)
+- 🔧 **Correção automática**: ESLint corrige problemas automaticamente quando possível
+
+**O que acontece:**
+
+- Arquivos `.js`, `.jsx`, `.ts`, `.tsx` → ESLint + Prettier
+- Arquivos `.astro`, `.json`, `.md` → Prettier
+
+#### 2. `commit-msg` - Validação de Mensagens
+
+Executado automaticamente para validar o formato da mensagem de commit:
+
+- ✅ **Commitlint**: Valida formato Conventional Commits
+- ⚡ **Performance**: Instantâneo (<1 segundo)
+- 🚫 **Bloqueia commits**: Falha se formato incorreto
+
+**Tipos permitidos:**
+
+- `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`
+
+**Scopes permitidos:**
+
+- `hero`, `preloader`, `deps`, `config`, `ci`, `docs`
+
+**Exemplos válidos:**
+
+- ✅ `feat(hero): add video autoplay`
+- ✅ `fix(preloader): resolve mobile detection`
+- ❌ `fix: bug` (falta scope)
+- ❌ `add feature` (formato incorreto)
+
+#### 3. `pre-push` - Validações Completas
+
+Executado automaticamente antes de cada push:
+
+- ✅ **TypeScript**: Type checking completo
+- ✅ **Build**: Garante que o projeto compila
+- ⏱️ **Performance**: Mais lento (10-30 segundos), mas garante qualidade
+
+**Justificativa:**
+
+- Typecheck completo é mais lento, mas garante que não há erros de tipo
+- Build garante que o projeto compila corretamente
+- Executado apenas antes do push (não bloqueia commits locais rápidos)
+
+### Workflow com Git Hooks
+
+1. **Desenvolvedor faz alterações**
+
+   ```bash
+   # Edita arquivos...
+   ```
+
+2. **Adiciona arquivos ao staging**
+
+   ```bash
+   git add .
+   ```
+
+3. **Faz commit** → **`pre-commit`** roda automaticamente
+   - Lint-staged valida e corrige arquivos staged
+   - Se houver erros não corrigíveis, commit é bloqueado
+
+4. **Mensagem de commit** → **`commit-msg`** valida automaticamente
+
+   ```bash
+   git commit -m "feat(hero): add video autoplay"
+   ```
+
+   - Se formato incorreto, commit é bloqueado
+
+5. **Push** → **`pre-push`** roda automaticamente
+
+   ```bash
+   git push origin feat/nova-feature
+   ```
+
+   - Typecheck completo
+   - Build do projeto
+   - Se algum falhar, push é bloqueado
+
+6. **CI no GitHub Actions** valida novamente (redundância proposital)
+
+### Bypass de Hooks (Emergências)
+
+Em situações críticas, hooks podem ser bypassados:
+
+```bash
+# Bypass pre-commit e commit-msg
+git commit --no-verify -m "emergency fix"
+
+# Bypass pre-push
+git push --no-verify
+```
+
+⚠️ **Atenção**: Use apenas em emergências. O CI ainda validará o código.
+
+### Troubleshooting Git Hooks
+
+#### Hook não está executando
+
+```bash
+# Verificar se Husky está instalado
+ls -la .husky/
+
+# Reinstalar hooks (executado automaticamente no npm install)
+npm run prepare
+
+# Verificar permissões dos hooks
+chmod +x .husky/pre-commit
+chmod +x .husky/commit-msg
+chmod +x .husky/pre-push
+```
+
+#### Pre-commit falha com erros de lint
+
+```bash
+# Corrigir manualmente antes de commitar
+npm run lint:fix
+npm run format
+
+# Ou deixar o lint-staged corrigir automaticamente
+git add .
+git commit -m "feat: your message"
+```
+
+#### Commit-msg rejeita mensagem válida
+
+Verifique o formato:
+
+- ✅ `type(scope): description`
+- ✅ Scope deve estar na lista permitida (ver `commitlint.config.js`)
+- ✅ Type deve estar na lista permitida
+
+#### Pre-push falha com erros de TypeScript
+
+```bash
+# Verificar erros localmente
+npm run typecheck
+
+# Corrigir erros antes de fazer push
+```
+
+### Integração com CI/CD
+
+- **Husky não substitui o CI**: O GitHub Actions continua validando tudo
+- **Husky previne problemas**: Desenvolvedores recebem feedback antes de fazer push
+- **Economia de recursos**: Menos execuções de CI com código inválido
+- **Redundância proposital**: CI valida novamente para garantir consistência
 
 ## Dependabot
 
@@ -155,34 +325,47 @@ O projeto está configurado com Dependabot para atualizações automáticas:
 ## Fluxo de Trabalho Diário
 
 1. **Criar feature branch** a partir de `main`
+
    ```bash
    git checkout -b feat/nova-feature
    ```
 
 2. **Desenvolver** localmente
+
    ```bash
    npm run dev
    ```
 
-3. **Validar antes de commit**
+3. **Adicionar arquivos ao staging**
+
    ```bash
-   npm run lint:fix    # Corrige problemas de lint
-   npm run format      # Formata código
-   npm run typecheck   # Verifica tipos
-   npm run build       # Garante que build funciona
+   git add .
    ```
 
 4. **Commit usando Conventional Commits**
+
    ```bash
    git commit -m "feat(hero): add video autoplay"
    ```
 
+   **Git Hooks executam automaticamente:**
+   - ✅ **pre-commit**: Lint-staged valida e corrige arquivos staged (ESLint + Prettier)
+   - ✅ **commit-msg**: Commitlint valida formato da mensagem
+
+   ⚠️ Se algum hook falhar, o commit será bloqueado. Corrija os problemas antes de tentar novamente.
+
 5. **Push e abrir PR**
+
    ```bash
    git push origin feat/nova-feature
    ```
 
-6. **CI automático** valida o código
+   **Git Hook executa automaticamente:**
+   - ✅ **pre-push**: Typecheck completo + Build do projeto
+
+   ⚠️ Se o hook falhar, o push será bloqueado. Corrija os problemas antes de tentar novamente.
+
+6. **CI automático** valida o código (redundância proposital)
    - ✅ ESLint
    - ✅ Prettier
    - ✅ TypeScript
@@ -195,6 +378,19 @@ O projeto está configurado com Dependabot para atualizações automáticas:
 
 9. **Merge** após aprovação
    - Production deploy automático após merge
+
+### Validação Manual (Opcional)
+
+Se preferir validar manualmente antes de commitar:
+
+```bash
+npm run lint:fix    # Corrige problemas de lint
+npm run format      # Formata código
+npm run typecheck   # Verifica tipos
+npm run build       # Garante que build funciona
+```
+
+**Nota**: Os Git Hooks executam essas validações automaticamente, mas você pode executá-las manualmente se preferir.
 
 ## Troubleshooting
 
