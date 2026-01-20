@@ -1,0 +1,589 @@
+---
+/**
+ * Header - Navegação principal do STL Festival
+ * Inclui: Logo, menu de navegação, menu mobile responsivo
+ */
+
+// Links de navegação
+const navLinks = [
+  { href: '#sobre', label: 'SOBRE' },
+  { href: '#lineup', label: 'LINE-UP' },
+  { href: '#valley', label: 'VALLEY' },
+  { href: '#acessibilidade', label: 'ACESSIBILIDADE' },
+  { href: '#translado', label: 'TRANSLADO' },
+  { href: '#tirolesa', label: 'TIROLESA' },
+]
+---
+
+<!-- Skip to main content link -->
+<a href="#main-content" class="header-skip-link"> Pular para o conteúdo principal </a>
+
+<header class="header" id="header" role="banner">
+  <div class="header-container">
+    <!-- Logo -->
+    <a href="/" class="header-logo" aria-label="STL Festival - Página inicial">
+      <img
+        src="/logo/logo-stl.svg"
+        alt="STL Festival Logo"
+        class="header-logo-img"
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+
+    <!-- Menu Desktop -->
+    <nav class="header-nav" aria-label="Navegação principal">
+      <ul class="header-nav-list">
+        {
+          navLinks.map(link => (
+            <li class="header-nav-item">
+              <a href={link.href} class="header-nav-link" data-scroll-to={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <!-- Botão Menu Mobile -->
+    <button
+      class="header-menu-toggle"
+      aria-label="Abrir menu de navegação"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      id="menu-toggle"
+    >
+      <span class="header-menu-toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+  </div>
+
+  <!-- Menu Mobile -->
+  <nav
+    class="header-mobile-menu"
+    id="mobile-menu"
+    aria-label="Menu de navegação mobile"
+    aria-hidden="true"
+  >
+    <ul class="header-mobile-menu-list">
+      {
+        navLinks.map(link => (
+          <li class="header-mobile-menu-item">
+            <a href={link.href} class="header-mobile-menu-link" data-scroll-to={link.href}>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>
+
+<script>
+  // Toggle menu mobile
+  const menuToggle = document.getElementById('menu-toggle')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const navLinks = document.querySelectorAll('[data-scroll-to]')
+  let focusTrapCleanup: (() => void) | null = null
+
+  // Função para fechar menu mobile
+  function closeMobileMenu() {
+    if (menuToggle && mobileMenu) {
+      menuToggle.setAttribute('aria-expanded', 'false')
+      mobileMenu.setAttribute('aria-hidden', 'true')
+      document.body.classList.remove('menu-open')
+
+      // Limpar focus trap
+      if (focusTrapCleanup) {
+        focusTrapCleanup()
+        focusTrapCleanup = null
+      }
+
+      // Retornar focus para o botão toggle
+      menuToggle.focus()
+    }
+  }
+
+  // Função para abrir menu mobile
+  function openMobileMenu() {
+    if (menuToggle && mobileMenu) {
+      menuToggle.setAttribute('aria-expanded', 'true')
+      mobileMenu.setAttribute('aria-hidden', 'false')
+      document.body.classList.add('menu-open')
+
+      // Ativar focus trap
+      focusTrapCleanup = trapFocus(mobileMenu, menuToggle)
+    }
+  }
+
+  // Focus trap no menu mobile
+  function trapFocus(menuElement: HTMLElement, toggleButton: HTMLElement) {
+    const focusableElements = menuElement.querySelectorAll(
+      'a, button, [tabindex]:not([tabindex="-1"])'
+    )
+    const firstElement = focusableElements[0] as HTMLElement
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement
+
+    function handleTab(e: KeyboardEvent) {
+      if (e.key !== 'Tab') return
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement?.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement?.focus()
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleTab)
+    firstElement?.focus()
+
+    return () => {
+      document.removeEventListener('keydown', handleTab)
+    }
+  }
+
+  // Toggle menu mobile
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true'
+      if (isExpanded) {
+        closeMobileMenu()
+      } else {
+        openMobileMenu()
+      }
+    })
+  }
+
+  // Escape key handler
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && mobileMenu && mobileMenu.getAttribute('aria-hidden') === 'false') {
+      closeMobileMenu()
+    }
+  })
+
+  // Scroll suave para âncoras
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href')
+      if (href?.startsWith('#')) {
+        e.preventDefault()
+        const target = document.querySelector(href)
+        if (target) {
+          const headerHeight = document.getElementById('header')?.offsetHeight || 0
+          const targetPosition =
+            target.getBoundingClientRect().top + window.pageYOffset - headerHeight
+
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+          })
+
+          // Fechar menu mobile após clicar em link
+          if (mobileMenu && mobileMenu.getAttribute('aria-hidden') === 'false') {
+            closeMobileMenu()
+          }
+        }
+      }
+    })
+  })
+
+  // Fechar menu ao clicar fora
+  document.addEventListener('click', e => {
+    if (
+      mobileMenu &&
+      mobileMenu.getAttribute('aria-hidden') === 'false' &&
+      !mobileMenu.contains(e.target as Node) &&
+      !menuToggle?.contains(e.target as Node)
+    ) {
+      closeMobileMenu()
+    }
+  })
+
+  // Scroll detection otimizado com requestAnimationFrame
+  let ticking = false
+  const scrollThreshold = 50
+
+  function updateHeader() {
+    const header = document.getElementById('header')
+    const scrolled = window.pageYOffset > scrollThreshold
+
+    if (header) {
+      header.classList.toggle('header-scrolled', scrolled)
+      // Não definir altura fixa no container - deixar CSS controlar
+    }
+
+    ticking = false
+  }
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeader)
+        ticking = true
+      }
+    },
+    { passive: true }
+  )
+
+  // Inicializar estado do header
+  updateHeader()
+
+  // Mostrar header apenas após preloader completar
+  const header = document.getElementById('header')
+
+  // Verificar se preloader já completou (caso de reduced motion ou reload)
+  const checkPreloaderComplete = () => {
+    // Se não houver preloader ou se reduced motion, mostrar header imediatamente
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      if (header) {
+        header.classList.add('header-visible')
+      }
+      return
+    }
+
+    // Escutar evento de preloader completo
+    window.addEventListener(
+      'preloader-complete',
+      () => {
+        if (header) {
+          // Pequeno delay para transição suave
+          setTimeout(() => {
+            header.classList.add('header-visible')
+          }, 300)
+        }
+      },
+      { once: true }
+    )
+  }
+
+  // Aguardar DOM estar pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', checkPreloaderComplete)
+  } else {
+    checkPreloaderComplete()
+  }
+</script>
+
+<style>
+  /* Skip link de acessibilidade */
+  .header-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 1rem;
+    background: var(--color-primary-red);
+    color: var(--color-text-light);
+    padding: var(--space-2) var(--space-4);
+    text-decoration: none;
+    z-index: var(--z-tooltip);
+    border-radius: var(--radius-md);
+    font-family: var(--font-display);
+    font-weight: var(--font-medium);
+    transition: top var(--transition-fast);
+  }
+
+  .header-skip-link:focus {
+    top: 1rem;
+    outline: 2px solid var(--color-primary-red);
+    outline-offset: 2px;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50; /* Acima do Hero (z-20 máximo) mas abaixo do Preloader (z-100) */
+    background-color: rgba(254, 251, 223, 0.1);
+    backdrop-filter: blur(8px) saturate(120%);
+    border-bottom: none;
+    transition:
+      background-color 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      backdrop-filter 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      height 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    height: 4rem; /* Altura consistente em todas as telas */
+    pointer-events: auto; /* Garantir que seja clicável */
+    opacity: 0; /* Inicialmente oculto, aparece após preloader */
+    visibility: hidden;
+    overflow: visible;
+  }
+
+  .header.header-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .header-scrolled {
+    box-shadow: var(--shadow-md);
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(16px) saturate(180%);
+    height: 4rem; /* Altura consistente - mesma do estado inicial */
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Logo à esquerda, menu à direita */
+    padding: var(--space-2) var(--space-4);
+    max-width: 1440px;
+    margin: 0 auto;
+    overflow: visible;
+    width: 100%;
+    gap: var(--space-4);
+    height: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .header-container {
+      padding: var(--space-3) var(--space-6);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-container {
+      padding: var(--space-3) var(--space-8);
+    }
+  }
+
+  /* Logo */
+  .header-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    z-index: 1;
+    transition: transform var(--transition-fast);
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .header-logo:hover {
+    transform: scale(1.05);
+  }
+
+  .header-logo-img {
+    height: 36px;
+    width: auto;
+    max-width: none;
+    transition:
+      height 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      filter 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) brightness(1.1);
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+  }
+
+  .header-scrolled .header-logo-img {
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3)) brightness(1.2);
+  }
+
+  @media (min-width: 768px) {
+    .header-logo-img {
+      height: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-logo-img {
+      height: 44px;
+    }
+  }
+
+  /* Navegação Desktop */
+  .header-nav {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .header-nav {
+      display: block;
+      flex: 1; /* Ocupa espaço disponível */
+      display: flex;
+      justify-content: center; /* Centraliza os links */
+    }
+  }
+
+  .header-nav-list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 3vw, 2.5rem); /* Espaçamento responsivo entre 24px e 40px */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-nav-item {
+    margin: 0;
+  }
+
+  .header-nav-link {
+    font-family: var(--font-display);
+    font-size: 0.75rem; /* 12px - mais compacto e compatível com a logo */
+    font-weight: var(--font-medium);
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap; /* Evitar quebra de linha nos links */
+  }
+
+  .header-scrolled .header-nav-link {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: none;
+  }
+
+  .header-nav-link:focus-visible {
+    outline: none;
+  }
+
+  /* Botão Menu Mobile */
+  .header-menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1;
+    position: relative;
+  }
+
+  @media (min-width: 1024px) {
+    .header-menu-toggle {
+      display: none;
+    }
+  }
+
+  .header-menu-toggle-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+    height: 18px;
+  }
+
+  .header-menu-toggle-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+
+  .header-scrolled .header-menu-toggle-icon span {
+    background-color: rgba(255, 255, 255, 0.95);
+    filter: none;
+  }
+
+  .header-menu-toggle[aria-expanded='true'] .header-menu-toggle-icon span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .header-menu-toggle[aria-expanded='true'] .header-menu-toggle-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header-menu-toggle[aria-expanded='true'] .header-menu-toggle-icon span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* Menu Mobile */
+  .header-mobile-menu {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(254, 251, 223, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(30, 24, 118, 0.1);
+    overflow: hidden;
+    transition:
+      opacity 300ms ease-in-out,
+      visibility 300ms ease-in-out,
+      transform 300ms ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (min-width: 1024px) {
+    .header-mobile-menu {
+      display: none;
+    }
+  }
+
+  .header-mobile-menu[aria-hidden='false'] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .header-mobile-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .header-mobile-menu-item {
+    margin: 0;
+  }
+
+  .header-mobile-menu-link {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+  }
+
+  .header-mobile-menu-link:hover,
+  .header-mobile-menu-link:focus {
+    color: var(--color-primary-red);
+    background-color: rgba(255, 77, 45, 0.1);
+    outline: none;
+  }
+
+  /* Prevenir scroll do body quando menu está aberto */
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .header,
+    .header-nav-link,
+    .header-mobile-menu,
+    .header-menu-toggle-icon span {
+      transition: none;
+    }
+  }
+</style>
