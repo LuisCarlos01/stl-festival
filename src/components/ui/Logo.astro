@@ -1,0 +1,75 @@
+---
+/**
+ * Logo Component - STL Festival
+ * Componente reutilizável para exibir o logo do STL Festival
+ *
+ * @param size - Tamanho do logo: 'sm' | 'md' | 'lg' | 'xl'
+ * @param variant - Variante do logo: 'default' | 'colorida'
+ * @param href - URL de destino (opcional, se não fornecido não será link)
+ * @param class - Classes CSS adicionais
+ */
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl'
+  variant?: 'default' | 'colorida'
+  href?: string
+  class?: string
+}
+
+const {
+  size = 'md',
+  variant = 'default',
+  href,
+  class: className = '',
+} = Astro.props
+
+const sizeClasses = {
+  sm: 'h-8 w-8',
+  md: 'h-12 w-12',
+  lg: 'h-16 w-16',
+  xl: 'h-24 w-24',
+}
+
+const sizeValues = {
+  sm: 32,
+  md: 48,
+  lg: 64,
+  xl: 96,
+}
+
+const logoPath = variant === 'colorida' 
+  ? '/logo/logo-colorida.svg' 
+  : '/logo/logo-stl.svg'
+
+const logoAlt = variant === 'colorida'
+  ? 'STL Festival Logo (Colorida)'
+  : 'STL Festival Logo'
+---
+
+{href ? (
+  <a
+    href={href}
+    class={`inline-block ${className}`}
+    aria-label="Voltar ao início"
+  >
+    <img
+      src={logoPath}
+      alt={logoAlt}
+      class={sizeClasses[size]}
+      width={sizeValues[size]}
+      height={sizeValues[size]}
+      loading="eager"
+      decoding="async"
+    />
+  </a>
+) : (
+  <img
+    src={logoPath}
+    alt={logoAlt}
+    class={`${sizeClasses[size]} ${className}`}
+    width={sizeValues[size]}
+    height={sizeValues[size]}
+    loading="eager"
+    decoding="async"
+  />
+)}

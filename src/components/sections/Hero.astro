@@ -74,26 +74,6 @@ const spotifyPlaylistUrl =
   <!-- Overlay escuro sutil para melhorar legibilidade -->
   <div class="absolute inset-0 z-[1] bg-black/20" aria-hidden="true"></div>
 
-  <!-- Logo STL (canto superior esquerdo) -->
-  <div
-    class="hero-logo fixed left-4 top-4 z-20 opacity-0 transition-opacity duration-500 md:left-6 md:top-6"
-  >
-    <a
-      href="/"
-      class="block cursor-pointer transition-opacity duration-300 hover:opacity-80"
-      aria-label="Voltar ao início"
-    >
-      <img
-        src="/logo/logo-stl.svg"
-        alt="STL Festival Logo"
-        class="h-12 w-12 object-contain sm:h-14 sm:w-14 md:h-16 md:w-16"
-        width="64"
-        height="64"
-        loading="eager"
-        decoding="async"
-      />
-    </a>
-  </div>
 
   <!-- Badge do Spotify (lado esquerdo) -->
   <SpotifyBadge
@@ -105,34 +85,18 @@ const spotifyPlaylistUrl =
     class="hero-spotify-badge opacity-0 transition-opacity duration-500"
   />
 
-  <!-- Texto com scroll infinito - Data do evento -->
-  <div
-    class="absolute bottom-0 left-0 right-0 z-10 overflow-hidden bg-gradient-to-t from-black/60 to-transparent py-4"
-  >
-    <div class="marquee-container">
-      <div class="marquee-content" id="marquee-text">
-        <!-- Duplicar mais vezes para garantir loop infinito -->
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-        <span class="marquee-item">06 • JUNHO • 2026 •</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Indicador de Scroll para Mobile (seta para baixo) -->
-  <div
+  <button
     id="mobile-scroll-indicator"
-    class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2 opacity-0 transition-opacity duration-500 lg:hidden"
+    class="group absolute bottom-20 left-1/2 z-20 -translate-x-1/2 opacity-0 transition-all duration-500 lg:hidden cursor-pointer hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg p-2"
+    aria-label="Rolar para a seção Sobre"
+    data-scroll-to="#sobre"
   >
     <div class="flex flex-col items-center gap-1">
       <!-- Seta animada -->
       <svg
-        class="animate-bounce-slow h-6 w-6 text-white/70"
+        class="animate-bounce-slow h-6 w-6 text-white/70 transition-colors group-hover:text-white group-active:text-white/90"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -145,9 +109,9 @@ const spotifyPlaylistUrl =
           d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
       <!-- Texto discreto -->
-      <span class="font-body text-[10px] uppercase tracking-wider text-white/50"> Deslize </span>
+      <span class="font-body text-[10px] uppercase tracking-wider text-white/50 transition-colors group-hover:text-white/80 group-active:text-white/70"> Deslize </span>
     </div>
-  </div>
+  </button>
 
   <!-- Título acessível (visualmente oculto) -->
   <h1 class="sr-only">STL Festival 2026</h1>
@@ -160,7 +124,6 @@ const spotifyPlaylistUrl =
     setupVideoErrorHandling,
     type VideoControlElements,
   } from '../../scripts/hero/videoControl'
-  import { setupMarqueeScrollSync } from '../../scripts/hero/marqueeSync'
   import { setupBadgeColorDetection } from '../../scripts/hero/badgeDetection'
   import { setupMobileScrollIndicator } from '../../scripts/hero/mobileIndicator'
 
@@ -168,7 +131,7 @@ const spotifyPlaylistUrl =
   const elements: VideoControlElements = {
     video: document.getElementById('hero-video') as HTMLVideoElement,
     fallbackImage: document.getElementById('hero-fallback-image') as HTMLImageElement,
-    logo: document.querySelector('.hero-logo') as HTMLElement,
+    logo: null, // Logo removida do Hero, agora está no Header
     badge: document.querySelector('.hero-spotify-badge') as HTMLElement,
   }
 
@@ -182,12 +145,11 @@ const spotifyPlaylistUrl =
 
   window.addEventListener('preloader-complete', () => {
     startVideo(elements)
-    if (elements.logo) elements.logo.style.opacity = '1'
     if (elements.badge) elements.badge.style.opacity = '1'
 
     // Inicializar funcionalidades após preloader
-    setupMarqueeScrollSync()
     setupBadgeColorDetection()
+    setupMobileScrollIndicator()
   })
 
   // Verificar reduced motion
@@ -197,12 +159,10 @@ const spotifyPlaylistUrl =
     // Se reduced motion, iniciar tudo direto
     startVideo(elements)
     if (elements.fallbackImage) elements.fallbackImage.style.opacity = '1'
-    if (elements.logo) elements.logo.style.opacity = '1'
     if (elements.badge) elements.badge.style.opacity = '1'
-    setupMarqueeScrollSync()
     setupBadgeColorDetection()
   } else {
-    // Inicializar com vídeo, logo e badge ocultos
+    // Inicializar com vídeo e badge ocultos
     updateHeroContent(0, elements)
   }
 
@@ -248,48 +208,6 @@ const spotifyPlaylistUrl =
     height: 100dvh; /* Dynamic viewport height para mobile */
   }
 
-  /* Container do marquee */
-  .marquee-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  /* Conteúdo do marquee */
-  .marquee-content {
-    display: flex;
-    width: fit-content;
-    white-space: nowrap;
-    will-change: transform;
-  }
-
-  /* Cada item do marquee */
-  .marquee-item {
-    display: inline-block;
-    padding: 0 4rem;
-    font-family: 'Jairo', sans-serif;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: bold;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Suporte para prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-content {
-      animation: none;
-    }
-  }
-
-  /* Mobile: texto menor */
-  @media (max-width: 640px) {
-    .marquee-item {
-      padding: 0 2rem;
-      letter-spacing: 0.15em;
-    }
-  }
 
   /* Animação bounce suave para seta mobile */
   @keyframes bounce-slow {

@@ -14,6 +14,23 @@ export function setupMobileScrollIndicator() {
   const isMobile = window.innerWidth < 1024
   if (!isMobile) return
 
+  // Adicionar funcionalidade de scroll suave ao clicar
+  indicator.addEventListener('click', (e) => {
+    e.preventDefault()
+    const target = indicator.getAttribute('data-scroll-to')
+    if (target) {
+      const targetElement = document.querySelector(target)
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        })
+        // Esconder indicador após clicar
+        indicator.style.opacity = '0'
+      }
+    }
+  })
+
   // Mostrar indicador após preloader
   window.addEventListener('preloader-complete', () => {
     setTimeout(() => {

@@ -180,6 +180,9 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
     return null
   }
 
+  // Opacidade do indicador de mouse (some ao scrollar)
+  const mouseIndicatorOpacity = useTransform(springProgress, [0, 20], [1, 0])
+
   return (
     <motion.div
       className="pointer-events-none fixed inset-0 z-[100]"
@@ -229,6 +232,76 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
           {phraseBottom}
         </motion.p>
       </motion.div>
+
+      {/* Indicador de Mouse - apenas desktop */}
+      {!isMobile && (
+        <motion.div
+          className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2"
+          style={{ opacity: mouseIndicatorOpacity }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.5 }}
+        >
+          <motion.div
+            animate={{
+              y: [0, 12, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          >
+            {/* Mouse SVG com animação mais pronunciada */}
+            <svg
+              width="36"
+              height="56"
+              viewBox="0 0 36 56"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="drop-shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+            >
+              {/* Corpo do mouse com brilho pulsante */}
+              <motion.rect
+                x="2"
+                y="2"
+                width="32"
+                height="52"
+                rx="16"
+                stroke="white"
+                strokeWidth="2.5"
+                fill="transparent"
+                animate={{
+                  strokeOpacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+              {/* Rodinha animada com movimento mais evidente */}
+              <motion.rect
+                x="16"
+                y="12"
+                width="4"
+                height="10"
+                rx="2"
+                fill="white"
+                animate={{
+                  y: [12, 26, 12],
+                  opacity: [1, 0.4, 1],
+                }}
+                transition={{
+                  duration: 1.8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+            </svg>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.div>
   )
 }

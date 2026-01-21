@@ -206,3 +206,23 @@ svg {
 .animated {
   will-change: auto;
 }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+
+/* Header fixo fica por cima do Hero (transparente) */
+/* Não é necessário padding-top no main, pois o Hero ocupa 100vh */
+/* Para outras seções com âncoras, usar scroll-margin-top nas seções individuais */
+/* Isso garante que ao fazer scroll para uma seção, ela não fique escondida atrás do header */
+
+/* Scroll margin para seções com âncoras (exceto Hero que ocupa 100vh) */
+section[id] {
+  scroll-margin-top: 4rem; /* Altura do header mobile */
+}
+
+@media (min-width: 1024px) {
+  section[id] {
+    scroll-margin-top: 4rem; /* Altura do header desktop quando scrolled */
+  }
+}

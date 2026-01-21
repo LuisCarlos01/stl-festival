@@ -5,6 +5,7 @@
  */
 
 import '../styles/global.css'
+import Header from '../components/sections/Header.astro'
 
 interface Props {
   title?: string
@@ -126,6 +127,9 @@ const siteTitle = title.includes('STL Festival') ? title : `${title} | STL Festi
   <body>
     <!-- Skip to content (acessibilidade) -->
     <a href="#main-content" class="skip-to-content"> Pular para o conteúdo principal </a>
+
+    <!-- Header -->
+    <Header />
 
     <!-- Main Content -->
     <main id="main-content">
