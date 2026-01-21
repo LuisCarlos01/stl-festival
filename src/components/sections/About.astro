@@ -1,0 +1,151 @@
+---
+/**
+ * About Section - STL Festival
+ * Seção sobre o festival com efeito de marca-texto animado
+ */
+---
+
+<section id="sobre" class="about-section relative flex min-h-screen items-center">
+  <!-- Background PNG -->
+  <div class="about-background absolute inset-0 z-0" aria-hidden="true"></div>
+
+  <!-- Conteúdo posicionado dentro da área laranja -->
+  <div class="about-content-wrapper relative z-10 w-full">
+    <div class="container-responsive">
+      <!-- Texto principal -->
+      <div
+        class="about-content mx-auto max-w-4xl font-body text-base leading-relaxed text-white md:text-lg lg:text-xl"
+      >
+        <p class="mb-6">
+          O STL é o festival da diversidade. Aqui temos o encontro de diferentes tribos que se
+          conectam através da música e da energia da cidade mais mística do Brasil, <span
+            class="brush-highlight"
+            data-highlight="1">São Thomé Das Letras</span
+          >. Dezenas de milhares de pessoas já sentiram essa experiência, junto com os maiores nomes
+          nacionais do rock, reggae e rap. Nosso objetivo é ser <span
+            class="brush-highlight"
+            data-highlight="2">o maior festival de música fora de uma capital</span
+          >.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { setupHighlightAnimation } from '../../scripts/about/highlightAnimation'
+
+  // Inicializar animação quando componente montar
+  // Usar is:inline para garantir que o script execute no contexto correto
+  if (typeof window !== 'undefined') {
+    // Aguardar um pouco para garantir que o DOM está renderizado
+    setTimeout(() => {
+      setupHighlightAnimation()
+    }, 200)
+  }
+</script>
+
+<style>
+  /* Background PNG - cobre toda a seção */
+  .about-background {
+    background-image: url('/about.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Wrapper do conteúdo para posicionamento dentro da área laranja */
+  .about-content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+    /* Ajuste vertical para alinhar com área laranja (parte inferior da imagem) */
+    padding-top: 35vh;
+    padding-bottom: 10vh;
+  }
+
+  @media (min-width: 768px) {
+    .about-content-wrapper {
+      padding-left: var(--space-6);
+      padding-right: var(--space-6);
+      padding-top: 38vh;
+      padding-bottom: 12vh;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .about-content-wrapper {
+      padding-left: var(--space-8);
+      padding-right: var(--space-8);
+      padding-top: 40vh;
+      padding-bottom: 15vh;
+    }
+  }
+
+  /* Efeito de marca-texto (brush highlight) */
+  .brush-highlight {
+    position: relative;
+    display: inline-block;
+    color: var(--color-neutral-white);
+    font-weight: var(--font-semibold);
+  }
+
+  .brush-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff4d2d;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1s ease-out;
+    z-index: -1;
+    opacity: 1;
+    pointer-events: none;
+    /* Ajuste para cobrir o texto completamente com padding */
+    padding-top: 0.15em;
+    padding-bottom: 0.15em;
+    margin-top: -0.15em;
+    margin-bottom: -0.15em;
+    box-sizing: content-box;
+  }
+
+  /* Estado inicial - highlight oculto */
+  .brush-highlight:not(.animate)::before {
+    transform: scaleX(0);
+  }
+
+  /* Animação quando visível - aplicada via classe .animate */
+  .brush-highlight.animate::before {
+    transform: scaleX(1);
+  }
+
+  /* Delay para segundo highlight - delay aplicado na transição */
+  .brush-highlight[data-highlight='2']::before {
+    transition-delay: 400ms;
+  }
+
+  .brush-highlight[data-highlight='2'].animate::before {
+    transition-delay: 400ms;
+  }
+
+  /* Suporte para prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .brush-highlight::before {
+      transition: none;
+      transform: scaleX(1);
+    }
+  }
+
+  /* Ajustes de espaçamento responsivo do conteúdo */
+  .about-content {
+    padding: 0;
+  }
+</style>

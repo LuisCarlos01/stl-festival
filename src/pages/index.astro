@@ -7,6 +7,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro'
 import Preloader from '../components/Preloader.tsx'
 import Hero from '../components/sections/Hero.astro'
+import About from '../components/sections/About.astro'
 
 // URL do video Cloudinary
 const videoUrl =
@@ -26,13 +27,8 @@ const videoUrl =
   <!-- Hero com video (atrás do preloader) -->
   <Hero videoUrl={videoUrl} />
 
-  <!-- Placeholder para próximas seções (Sprint 2) -->
-  <section id="sobre" class="min-h-screen bg-white py-20">
-    <div class="container-responsive text-center">
-      <h2 class="font-display text-primary-indigo mb-4">Sobre o STL Festival</h2>
-      <p class="text-secondary-green">Em breve...</p>
-    </div>
-  </section>
+  <!-- About Section -->
+  <About />
 
   <section id="lineup" class="bg-neutral-cream min-h-screen py-20">
     <div class="container-responsive text-center">
