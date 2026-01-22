@@ -277,6 +277,14 @@ const navLinks = [
       },
       { once: true }
     )
+
+    // FALLBACK: Se após 5 segundos o preloader não completar, mostrar header
+    setTimeout(() => {
+      if (header && !header.classList.contains('header-visible')) {
+        console.warn('[Header] Fallback: Preloader event not fired, showing header anyway')
+        header.classList.add('header-visible')
+      }
+    }, 5000)
   }
 
   // Aguardar DOM estar pronto

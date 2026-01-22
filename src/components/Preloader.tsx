@@ -185,8 +185,8 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-[100]"
-      style={{ opacity: preloaderOpacity }}
+      className="fixed inset-0 z-[9999]"
+      style={{ opacity: preloaderOpacity, pointerEvents: 'auto' }}
     >
       {/* Cortina Superior */}
       <motion.div
