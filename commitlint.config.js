@@ -22,6 +22,7 @@ export default {
       'always',
       [
         'hero', // Seção Hero
+        'about', // Seção About
         'preloader', // Componente Preloader
         'deps', // Dependências
         'config', // Configurações

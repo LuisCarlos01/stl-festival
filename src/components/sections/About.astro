@@ -5,7 +5,7 @@
  */
 ---
 
-<section id="sobre" class="about-section relative flex min-h-screen items-center">
+<section id="sobre" class="about-section relative flex min-h-screen items-center overflow-hidden">
   <!-- Background PNG -->
   <div class="about-background absolute inset-0 z-0" aria-hidden="true"></div>
 
@@ -32,31 +32,152 @@
   </div>
 </section>
 
-<script>
-  import { setupHighlightAnimation } from '../../scripts/about/highlightAnimation'
+<script is:inline>
+  /**
+   * Highlight Animation - About Section
+   */
+  ;(function () {
+    console.log('[Highlight] Iniciando script...')
 
-  // Inicializar animação quando componente montar
-  // Usar is:inline para garantir que o script execute no contexto correto
-  if (typeof window !== 'undefined') {
-    // Aguardar um pouco para garantir que o DOM está renderizado
-    setTimeout(() => {
-      setupHighlightAnimation()
-    }, 200)
-  }
+    function applyHighlight() {
+      const highlights = document.querySelectorAll('#sobre .brush-highlight')
+      console.log('[Highlight] Elementos encontrados:', highlights.length)
+
+      if (highlights.length === 0) return
+
+      highlights.forEach((el, idx) => {
+        console.log(
+          `[Highlight] Aplicando classe animate no elemento ${idx + 1}:`,
+          el.textContent.trim()
+        )
+        console.log(
+          `[Highlight] Elemento ${idx + 1} data-highlight:`,
+          el.getAttribute('data-highlight')
+        )
+        console.log(`[Highlight] Elemento ${idx + 1} classes antes:`, el.className)
+
+        el.classList.add('animate')
+
+        console.log(`[Highlight] Elemento ${idx + 1} classes depois:`, el.className)
+
+        // Verificar após aplicar
+        setTimeout(() => {
+          const computedStyle = window.getComputedStyle(el, '::before')
+          console.log(
+            `[Highlight] Elemento ${idx + 1} ::before transform:`,
+            computedStyle.transform
+          )
+          console.log(
+            `[Highlight] Elemento ${idx + 1} ::before background:`,
+            computedStyle.backgroundColor
+          )
+          console.log(
+            `[Highlight] Elemento ${idx + 1} ::before transition:`,
+            computedStyle.transition
+          )
+        }, 100)
+
+        // Verificar após o delay do segundo elemento
+        if (idx === 1) {
+          setTimeout(() => {
+            const computedStyle = window.getComputedStyle(el, '::before')
+            console.log(
+              `[Highlight] Elemento ${idx + 1} (após delay) ::before transform:`,
+              computedStyle.transform
+            )
+          }, 2500)
+        }
+      })
+
+      // Log final após todas as animações
+      setTimeout(() => {
+        console.log('[Highlight] ✅ TODAS AS ANIMAÇÕES CONCLUÍDAS!')
+        highlights.forEach((el, idx) => {
+          const style = window.getComputedStyle(el, '::before')
+          console.log(`[Highlight] FINAL Elemento ${idx + 1}: transform = ${style.transform}`)
+        })
+      }, 3000)
+    }
+
+    function init() {
+      const aboutSection = document.getElementById('sobre')
+      if (!aboutSection) {
+        console.log('[Highlight] Seção não encontrada')
+        return
+      }
+
+      const isMobile = window.innerWidth < 768
+      console.log('[Highlight] Mobile:', isMobile)
+
+      // Aplicar imediatamente se a seção já estiver visível
+      const rect = aboutSection.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        console.log('[Highlight] Seção já visível - aplicando imediatamente')
+        setTimeout(applyHighlight, 500)
+        return
+      }
+
+      // Usar IntersectionObserver
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              console.log('[Highlight] Seção entrou na viewport')
+              applyHighlight()
+              observer.disconnect()
+            }
+          })
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '100px',
+        }
+      )
+
+      observer.observe(aboutSection)
+
+      // Fallback
+      setTimeout(() => {
+        const rect2 = aboutSection.getBoundingClientRect()
+        if (rect2.top < window.innerHeight && rect2.bottom > 0) {
+          console.log('[Highlight] Fallback aplicando')
+          applyHighlight()
+        }
+      }, 3000)
+    }
+
+    // Executar quando pronto
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init)
+    } else {
+      init()
+    }
+  })()
 </script>
 
 <style>
-  /* Background PNG - cobre toda a seção */
+  /* Background PNG - responsivo */
   .about-background {
     background-image: url('/about.png');
     background-size: cover;
-    background-position: center center;
+    background-position: center bottom;
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
   }
 
-  /* Wrapper do conteúdo para posicionamento dentro da área laranja */
+  @media (max-width: 767px) {
+    .about-background {
+      background-position: center 60%;
+      min-height: 100dvh;
+    }
+
+    .about-section {
+      min-height: 100dvh;
+    }
+  }
+
+  /* Wrapper do conteúdo */
   .about-content-wrapper {
     min-height: 100vh;
     display: flex;
@@ -64,9 +185,8 @@
     justify-content: center;
     padding-left: var(--space-4);
     padding-right: var(--space-4);
-    /* Ajuste vertical para alinhar com área laranja (parte inferior da imagem) */
-    padding-top: 35vh;
-    padding-bottom: 10vh;
+    padding-top: 25vh;
+    padding-bottom: 8vh;
   }
 
   @media (min-width: 768px) {
@@ -87,65 +207,69 @@
     }
   }
 
-  /* Efeito de marca-texto (brush highlight) */
+  /* === EFEITO DE MARCA-TEXTO === */
   .brush-highlight {
     position: relative;
-    display: inline-block;
-    color: var(--color-neutral-white);
-    font-weight: var(--font-semibold);
+    /* MUDANÇA: box-decoration-break para funcionar em múltiplas linhas */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    color: #ffffff !important;
+    font-weight: 600;
+    /* Aplicar background direto no elemento em vez de ::before */
+    background: linear-gradient(to right, #ff4d2d 0%, #ff4d2d 100%);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+    transition: background-size 1.5s ease-in-out;
+    padding: 2px 4px;
+    margin: -2px -4px;
   }
 
-  .brush-highlight::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #ff4d2d;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 1s ease-out;
-    z-index: -1;
-    opacity: 1;
-    pointer-events: none;
-    /* Ajuste para cobrir o texto completamente com padding */
-    padding-top: 0.15em;
-    padding-bottom: 0.15em;
-    margin-top: -0.15em;
-    margin-bottom: -0.15em;
-    box-sizing: content-box;
+  /* Estado inicial */
+  .brush-highlight:not(.animate) {
+    background-size: 0% 100%;
   }
 
-  /* Estado inicial - highlight oculto */
-  .brush-highlight:not(.animate)::before {
-    transform: scaleX(0);
+  /* Estado animado */
+  .brush-highlight.animate {
+    background-size: 100% 100% !important;
   }
 
-  /* Animação quando visível - aplicada via classe .animate */
-  .brush-highlight.animate::before {
-    transform: scaleX(1);
-  }
-
-  /* Delay para segundo highlight - delay aplicado na transição */
-  .brush-highlight[data-highlight='2']::before {
-    transition-delay: 400ms;
-  }
-
-  .brush-highlight[data-highlight='2'].animate::before {
-    transition-delay: 400ms;
-  }
-
-  /* Suporte para prefers-reduced-motion */
-  @media (prefers-reduced-motion: reduce) {
+  /* Mobile: animação mais rápida */
+  @media (max-width: 767px) {
     .brush-highlight::before {
-      transition: none;
-      transform: scaleX(1);
+      transition-duration: 0.8s !important;
     }
   }
 
-  /* Ajustes de espaçamento responsivo do conteúdo */
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .brush-highlight::before {
+      transition: none !important;
+    }
+
+    .brush-highlight.animate::before {
+      transform: scaleX(1) !important;
+    }
+  }
+
+  /* Ajustes de conteúdo */
   .about-content {
     padding: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  @media (max-width: 767px) {
+    .about-content {
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      padding-left: var(--space-2);
+      padding-right: var(--space-2);
+    }
+
+    .about-content p {
+      margin-bottom: var(--space-4);
+    }
   }
 </style>
