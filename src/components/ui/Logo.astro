@@ -16,12 +16,7 @@ interface Props {
   class?: string
 }
 
-const {
-  size = 'md',
-  variant = 'default',
-  href,
-  class: className = '',
-} = Astro.props
+const { size = 'md', variant = 'default', href, class: className = '' } = Astro.props
 
 const sizeClasses = {
   sm: 'h-8 w-8',
@@ -37,39 +32,33 @@ const sizeValues = {
   xl: 96,
 }
 
-const logoPath = variant === 'colorida' 
-  ? '/logo/logo-colorida.svg' 
-  : '/logo/logo-stl.svg'
+const logoPath = variant === 'colorida' ? '/logo/logo-colorida.svg' : '/logo/logo-stl.svg'
 
-const logoAlt = variant === 'colorida'
-  ? 'STL Festival Logo (Colorida)'
-  : 'STL Festival Logo'
+const logoAlt = variant === 'colorida' ? 'STL Festival Logo (Colorida)' : 'STL Festival Logo'
 ---
 
-{href ? (
-  <a
-    href={href}
-    class={`inline-block ${className}`}
-    aria-label="Voltar ao início"
-  >
+{
+  href ? (
+    <a href={href} class={`inline-block ${className}`} aria-label="Voltar ao início">
+      <img
+        src={logoPath}
+        alt={logoAlt}
+        class={sizeClasses[size]}
+        width={sizeValues[size]}
+        height={sizeValues[size]}
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+  ) : (
     <img
       src={logoPath}
       alt={logoAlt}
-      class={sizeClasses[size]}
+      class={`${sizeClasses[size]} ${className}`}
       width={sizeValues[size]}
       height={sizeValues[size]}
       loading="eager"
       decoding="async"
     />
-  </a>
-) : (
-  <img
-    src={logoPath}
-    alt={logoAlt}
-    class={`${sizeClasses[size]} ${className}`}
-    width={sizeValues[size]}
-    height={sizeValues[size]}
-    loading="eager"
-    decoding="async"
-  />
-)}
+  )
+}

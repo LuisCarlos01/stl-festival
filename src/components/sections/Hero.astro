@@ -74,7 +74,6 @@ const spotifyPlaylistUrl =
   <!-- Overlay escuro sutil para melhorar legibilidade -->
   <div class="absolute inset-0 z-[1] bg-black/20" aria-hidden="true"></div>
 
-
   <!-- Badge do Spotify (lado esquerdo) -->
   <SpotifyBadge
     playlistUrl={spotifyPlaylistUrl}
@@ -85,11 +84,10 @@ const spotifyPlaylistUrl =
     class="hero-spotify-badge opacity-0 transition-opacity duration-500"
   />
 
-
   <!-- Indicador de Scroll para Mobile (seta para baixo) -->
   <button
     id="mobile-scroll-indicator"
-    class="group absolute bottom-20 left-1/2 z-20 -translate-x-1/2 opacity-0 transition-all duration-500 lg:hidden cursor-pointer hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg p-2"
+    class="group absolute bottom-20 left-1/2 z-20 -translate-x-1/2 cursor-pointer rounded-lg p-2 opacity-0 transition-all duration-500 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent active:scale-95 lg:hidden"
     aria-label="Rolar para a seção Sobre"
     data-scroll-to="#sobre"
   >
@@ -109,7 +107,11 @@ const spotifyPlaylistUrl =
           d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
       </svg>
       <!-- Texto discreto -->
-      <span class="font-body text-[10px] uppercase tracking-wider text-white/50 transition-colors group-hover:text-white/80 group-active:text-white/70"> Deslize </span>
+      <span
+        class="font-body text-[10px] uppercase tracking-wider text-white/50 transition-colors group-hover:text-white/80 group-active:text-white/70"
+      >
+        Deslize
+      </span>
     </div>
   </button>
 
@@ -207,7 +209,6 @@ const spotifyPlaylistUrl =
     height: 100vh;
     height: 100dvh; /* Dynamic viewport height para mobile */
   }
-
 
   /* Animação bounce suave para seta mobile */
   @keyframes bounce-slow {

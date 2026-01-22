@@ -67,6 +67,9 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
   const phraseOpacity = useTransform(springProgress, [0, 50, 100], [1, 0, 0])
   const preloaderOpacity = useTransform(springProgress, [50, 100], [1, 0])
 
+  // Opacidade do indicador de mouse (some ao scrollar) - MOVIDO PARA ANTES DO RETURN
+  const mouseIndicatorOpacity = useTransform(springProgress, [0, 20], [1, 0])
+
   // Auto-play no mobile
   useEffect(() => {
     if (!isMobile || reducedMotion || isComplete) return
@@ -179,9 +182,6 @@ export default function Preloader({ logoSrc, phraseTop, phraseBottom }: Preloade
   if (reducedMotion || isComplete) {
     return null
   }
-
-  // Opacidade do indicador de mouse (some ao scrollar)
-  const mouseIndicatorOpacity = useTransform(springProgress, [0, 20], [1, 0])
 
   return (
     <motion.div

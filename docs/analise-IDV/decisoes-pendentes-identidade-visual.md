@@ -11,11 +11,13 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Logo principal (`logo-stl.svg`) usa `#ff4d2d` (vermelho)
 - Logo colorida (`logo-colorida.svg`) usa `#fe4f2d` (vermelho diferente)
 - Diferença sutil mas pode causar inconsistência visual
 
 **Decisão Necessária**:
+
 - [ ] Escolher cor padrão: `#ff4d2d` ou `#fe4f2d`
 - [ ] Atualizar logo colorida para usar cor escolhida
 - [ ] Ou documentar quando usar cada versão
@@ -31,10 +33,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Cor definida no sistema mas pouco utilizada
 - Não há clareza sobre quando usar
 
 **Decisão Necessária**:
+
 - [ ] Manter teal no sistema? (Sim/Não)
 - [ ] Se sim, definir casos de uso específicos
 - [ ] Se não, remover do sistema
@@ -50,10 +54,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Verde (`#006a47`) muito escuro para alguns fundos
 - Pode ter problemas de legibilidade
 
 **Decisão Necessária**:
+
 - [ ] Criar versão mais clara do verde para fundos escuros?
 - [ ] Definir regras de uso por contexto
 
@@ -70,15 +76,17 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Fonte disponível mas não utilizada
 - Sem definição de uso
 
 **Decisão Necessária**:
+
 - [ ] Usar Superbusy Activity? (Sim/Não)
 - [ ] Se sim, definir casos de uso específicos:
   - [ ] Badges decorativos
   - [ ] Elementos lúdicos
-  - [ ] Outros: _______________
+  - [ ] Outros: **\*\***\_\_\_**\*\***
 - [ ] Se não, remover do projeto
 
 **Impacto**: Baixo - Fonte não está sendo usada  
@@ -94,15 +102,17 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE** - **TEMPORÁRIO**
 
 **Problema**:
+
 - Favicon atual é temporário
 - Não há favicon oficial definido
 
 **Decisão Necessária**:
+
 - [ ] Escolher favicon definitivo
 - [ ] Opções:
   - [ ] Versão simplificada do logo principal
   - [ ] Ícone/símbolo específico
-  - [ ] Outro: _______________
+  - [ ] Outro: **\*\***\_\_\_**\*\***
 - [ ] Criar versões para diferentes tamanhos:
   - [ ] 16x16px
   - [ ] 32x32px
@@ -120,10 +130,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Logo principal muito detalhado para tamanhos pequenos
 - Não há versão simplificada
 
 **Decisão Necessária**:
+
 - [ ] Criar logo simplificado? (Sim/Não)
 - [ ] Se sim:
   - [ ] Definir nível de simplificação
@@ -142,10 +154,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Logo colorida existe mas uso não está documentado
 - Cores diferentes do sistema
 
 **Decisão Necessária**:
+
 - [ ] Manter logo colorida? (Sim/Não)
 - [ ] Se sim:
   - [ ] Padronizar cores ou documentar diferença
@@ -165,10 +179,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - 33+ arquivos PNG não analisados
 - Sem organização ou padronização
 
 **Decisão Necessária**:
+
 - [ ] Realizar auditoria visual dos PNGs
 - [ ] Identificar:
   - [ ] Padrões visuais
@@ -191,6 +207,7 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ✅ **CONCLUÍDO**
 
 **Ação Realizada**:
+
 - Cores integradas no `tailwind.config.mjs`
 - Fontes configuradas
 - Sistema pronto para uso
@@ -202,16 +219,18 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Não há biblioteca de componentes padrão
 - Cada desenvolvedor pode criar componentes diferentes
 
 **Decisão Necessária**:
+
 - [ ] Criar biblioteca de componentes:
   - [ ] Botões (primário, secundário, terciário)
   - [ ] Cards
   - [ ] Badges
   - [ ] Inputs
-  - [ ] Outros: _______________
+  - [ ] Outros: **\*\***\_\_\_**\*\***
 - [ ] Documentar uso de cada componente
 - [ ] Criar exemplos visuais
 
@@ -228,10 +247,12 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 **Status**: ⚠️ **PENDENTE**
 
 **Problema**:
+
 - Documentação existe mas pode ser expandida
 - Falta guia visual completo
 
 **Decisão Necessária**:
+
 - [ ] Criar design system completo:
   - [ ] Storybook ou similar
   - [ ] Exemplos visuais de todos os componentes
@@ -273,21 +294,26 @@ Este documento lista todas as decisões pendentes relacionadas à identidade vis
 Use este checklist para acompanhar o progresso das decisões:
 
 ### Semana 1
+
 - [ ] Padronizar cores dos logos
 - [ ] Decidir sobre Superbusy Activity
 
 ### Semana 2
+
 - [ ] Favicon definitivo escolhido
 - [ ] Favicon implementado
 
 ### Semana 3
+
 - [ ] Logo simplificado criado (se necessário)
 
 ### Mês 1
+
 - [ ] Componentes padrão criados
 - [ ] Auditoria dos PNGs iniciada
 
 ### Mês 2
+
 - [ ] Design system completo
 - [ ] Todas as decisões pendentes resolvidas
 
