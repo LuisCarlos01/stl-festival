@@ -23,6 +23,7 @@ export default {
       [
         'hero', // Seção Hero
         'about', // Seção About
+        'header', // Header/Navegação
         'preloader', // Componente Preloader
         'deps', // Dependências
         'config', // Configurações
