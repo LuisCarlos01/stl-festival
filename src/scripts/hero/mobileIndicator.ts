@@ -15,7 +15,7 @@ export function setupMobileScrollIndicator() {
   if (!isMobile) return
 
   // Adicionar funcionalidade de scroll suave ao clicar
-  indicator.addEventListener('click', (e) => {
+  indicator.addEventListener('click', e => {
     e.preventDefault()
     const target = indicator.getAttribute('data-scroll-to')
     if (target) {

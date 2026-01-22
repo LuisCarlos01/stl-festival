@@ -9,6 +9,7 @@ Este diretório contém toda a documentação relacionada à identidade visual d
 ### 1. [Análise da Identidade Visual](analise-identidade-visual.md)
 
 Análise completa e profissional da identidade visual atual do projeto, incluindo:
+
 - Resumo executivo
 - Análise detalhada por elemento (cores, tipografia, logos, elementos gráficos)
 - Pontos fortes e pontos de atenção
@@ -22,6 +23,7 @@ Análise completa e profissional da identidade visual atual do projeto, incluind
 ### 2. [Guia Prático de Uso](guia-uso-identidade-visual.md)
 
 Guia prático com instruções detalhadas para usar corretamente os elementos da identidade visual:
+
 - Paleta de cores com exemplos de uso
 - Tipografia e escala tipográfica
 - Cores por seção
@@ -35,6 +37,7 @@ Guia prático com instruções detalhadas para usar corretamente os elementos da
 ### 3. [Guia de Uso de Logos](guia-uso-logos.md)
 
 Guia específico para uso dos logos do STL Festival:
+
 - Versões disponíveis e quando usar cada uma
 - Regras de uso (tamanhos, espaçamento, contraste)
 - Implementação técnica
@@ -48,6 +51,7 @@ Guia específico para uso dos logos do STL Festival:
 ### 4. [Decisões Pendentes](decisoes-pendentes-identidade-visual.md)
 
 Lista de todas as decisões pendentes relacionadas à identidade visual:
+
 - Cores (padronização, uso do teal, variações de contraste)
 - Tipografia (Superbusy Activity)
 - Logos (favicon definitivo, logo simplificado)
@@ -113,6 +117,7 @@ Lista de todas as decisões pendentes relacionadas à identidade visual:
 ## 📝 Manutenção
 
 Esta documentação deve ser atualizada quando:
+
 - Novas decisões forem tomadas
 - Novos elementos visuais forem adicionados
 - Mudanças no sistema de design forem implementadas

@@ -25,6 +25,7 @@ Com base nos elementos visuais analisados, a personalidade da marca STL Festival
 ### 1.3 Público-Alvo
 
 Baseado no contexto do evento (festival de música, reggae, rap, natureza):
+
 - Jovens adultos (18-35 anos)
 - Amantes de música brasileira e cultura alternativa
 - Público consciente de sustentabilidade e inclusão
@@ -39,15 +40,18 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Cores Definidas no Sistema (`tokens.css`)
 
 **Primárias:**
+
 - `--color-primary-red: #ff4d2d` - Energia, impacto, ação
 - `--color-primary-orange: #ff9d28` - Calor humano, alegria, festival
 - `--color-primary-indigo: #1e1876` - Profundidade, contraste elegante
 
 **Secundárias:**
+
 - `--color-secondary-green: #006a47` - Natural, orgânico, sustentável
 - `--color-secondary-teal: #007b9a` - Moderno, tecnológico
 
 **Neutras:**
+
 - `--color-neutral-cream: #fefbdf` - Background principal, respiro visual
 - `--color-neutral-white: #ffffff`
 - `--color-neutral-black: #000000`
@@ -55,13 +59,15 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Análise da Paleta
 
 **Pontos Fortes:**
+
 - ✅ Hierarquia clara entre primárias e secundárias
 - ✅ Contraste adequado para acessibilidade (índigo sobre creme)
 - ✅ Cores funcionais bem definidas (texto, background, accent)
 - ✅ Paleta equilibrada entre quente (vermelho/laranja) e frio (verde/índigo)
 
 **Pontos de Atenção:**
-- ⚠️ **Inconsistência de cores nos logos**: 
+
+- ⚠️ **Inconsistência de cores nos logos**:
   - Logo principal usa `#ff4d2d` (vermelho)
   - Logo colorida usa `#fe4f2d` (vermelho ligeiramente diferente)
   - Logo colorida usa `#fe9c28` vs `#ff9d28` (laranja)
@@ -71,6 +77,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 - ⚠️ Teal (`#007b9a`) pouco utilizado no código atual - avaliar necessidade
 
 **Recomendações:**
+
 1. **Padronizar cores dos logos**: Decidir entre `#ff4d2d` ou `#fe4f2d` e aplicar consistentemente
 2. **Criar variações de contraste**: Definir versões mais claras do verde para uso em fundos escuros
 3. **Documentar uso por contexto**: Especificar quando usar cada cor primária vs secundária
@@ -82,18 +89,21 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Fontes Identificadas
 
 **1. Jairo (Display/Headlines)**
+
 - **Status**: ✅ Implementada e em uso
 - **Uso**: Headlines, CTAs, elementos de destaque
 - **Características**: Condensed, rounded, moderna
 - **Implementação**: `@font-face` em `tokens.css`, arquivos `.woff2` e `.woff`
 
 **2. Inter (Body Text)**
+
 - **Status**: ✅ Implementada via @fontsource
 - **Uso**: Corpo de texto, parágrafos, navegação
 - **Características**: Sans-serif moderna, legível, sistema de fallbacks robusto
 - **Pesos**: 400, 500, 600, 700
 
 **3. Superbusy Activity (Decorative)**
+
 - **Status**: ⚠️ Disponível mas não utilizada
 - **Uso**: Não definido
 - **Características**: Decorativa, lúdica
@@ -102,21 +112,25 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Hierarquia Tipográfica
 
 **Escala Definida:**
+
 - `--text-xs` até `--text-7xl` (12px até 72px)
 - Responsiva com breakpoints bem definidos
 - Line heights adequados (1.25 a 2.0)
 
 **Pontos Fortes:**
+
 - ✅ Escala tipográfica bem estruturada
 - ✅ Responsividade mobile-first
 - ✅ Letter-spacing ajustado para display font (-0.02em a -0.03em)
 - ✅ Sistema de fallbacks robusto para Inter
 
 **Pontos de Atenção:**
+
 - ⚠️ Superbusy Activity disponível mas não utilizada - pode gerar confusão
 - ⚠️ Falta documentação sobre quando usar cada tamanho
 
 **Recomendações:**
+
 1. **Decidir sobre Superbusy Activity**: Usar em elementos específicos (badges, decorações) ou remover
 2. **Criar guia de uso tipográfico**: Documentar quando usar cada escala
 3. **Avaliar legibilidade**: Testar contraste em diferentes combinações de cores
@@ -128,6 +142,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Logos Identificados
 
 **1. `logo-stl.svg` (Principal - em uso)**
+
 - **Dimensões**: 1080x1080px
 - **Cores**: Múltiplas (vermelho, laranja, índigo, verde, creme, marrom)
 - **Estilo**: Ilustrativo, detalhado, com elementos gráficos complexos
@@ -135,18 +150,21 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 - **Formato**: SVG com classes CSS definidas
 
 **2. `logo-colorida.svg` (Alternativa)**
+
 - **Dimensões**: 916x857.8px
 - **Cores**: `#fe4f2d`, `#fe9c28`, `#0d422f` (diferentes do sistema)
 - **Estilo**: Similar ao principal mas com cores ligeiramente diferentes
 - **Uso**: Não identificado no código atual
 
 **3. `favicon.svg`**
+
 - **Estilo**: Minimalista, apenas silhueta
 - **Suporte**: Dark mode automático
 - **Uso**: Favicon temporário do site
 - **Status**: ⚠️ **TEMPORÁRIO** - Favicon definitivo ainda não foi decidido
 
 **4. Logos Originais (`conteudos/Logo/`)**
+
 - `LOGO STL.svg`
 - `LOGO STL ORIGINAL.svg`
 - `Asset 1.svg`
@@ -155,12 +173,14 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Análise dos Logos
 
 **Pontos Fortes:**
+
 - ✅ Logo principal bem implementado no código
 - ✅ Formato SVG escalável
 - ✅ Favicon temporário funcional com suporte a dark mode
 - ✅ Logo tem personalidade e identidade visual forte
 
 **Pontos de Atenção:**
+
 - ⚠️ **Múltiplas versões sem clareza de uso**: Diferença entre `logo-stl.svg` e `logo-colorida.svg` não está documentada
 - ⚠️ **Inconsistência de cores**: Logo colorida usa cores diferentes do sistema de design
 - ⚠️ **Complexidade**: Logo principal é muito detalhado - pode ter problemas em tamanhos pequenos
@@ -168,10 +188,11 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 - ⚠️ **Favicon temporário**: Favicon atual é temporário - decisão sobre favicon definitivo pendente
 
 **Recomendações:**
+
 1. **Padronizar cores**: Alinhar cores do `logo-colorida.svg` com o sistema de design ou documentar quando usar cada versão
 2. **Decidir favicon definitivo**: Criar ou escolher favicon oficial que represente a marca (atual é temporário)
 3. **Criar versões simplificadas**: Versão para uso em pequenos tamanhos (favicon definitivo, mobile)
-4. **Documentar uso por contexto**: 
+4. **Documentar uso por contexto**:
    - Logo completo: Hero, headers grandes
    - Logo simplificado: Mobile, ícones
    - Logo colorida: Quando usar vs logo principal
@@ -185,6 +206,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Arquivos Identificados
 
 **Localização**: `conteudos/elementos (png)/PNG DESENHOS/`
+
 - 33+ arquivos PNG
 - Nomenclatura: `1.png` até `5.png`, `Asset 1.png` até `Asset 33.png`
 - Fundos: `FUNDO 1.png`, `FUNDO 2.png`, `FUNDO 3.png`
@@ -192,6 +214,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 **Status**: ⚠️ Não analisados visualmente (requer inspeção manual)
 
 **Recomendações:**
+
 1. **Auditoria visual**: Analisar amostra representativa para identificar:
    - Estilo ilustrativo consistente
    - Padrões de cores utilizados
@@ -207,21 +230,26 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 #### Arquivos Identificados
 
 **Camarote:**
+
 - `CARROSSEL-SETORES_04.png`
 
 **Camarote Premium:**
+
 - `CARROSSEL-CAMAROTE-PREMIUM_01.png` até `_04.png`
 - `CARROSSEL-SETORES_06.png`
 
 **Pistas:**
+
 - `CARROSSEL-SETORES_03.png`
 
 **Análise:**
+
 - ✅ Estrutura organizada por setor
 - ⚠️ Formato PNG pode não ser ideal para web (considerar WebP)
 - ⚠️ Não há padronização visual aparente nos nomes dos arquivos
 
 **Recomendações:**
+
 1. **Padronizar nomenclatura**: Usar padrão consistente (ex: `setor-camarote-01.webp`)
 2. **Otimizar formato**: Considerar WebP para melhor performance
 3. **Criar sistema de carrossel**: Implementar componente reutilizável
@@ -252,15 +280,18 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
    - ✅ Suporte a acessibilidade (reduced motion, focus visible)
 
 **Pontos Fortes:**
+
 - ✅ Sistema de design tokens bem implementado
 - ✅ Uso consistente de variáveis CSS
 - ✅ Acessibilidade considerada
 
 **Pontos de Atenção:**
+
 - ⚠️ Tailwind config não está usando as cores do sistema de design
 - ⚠️ Falta integração entre tokens CSS e Tailwind
 
 **Recomendações:**
+
 1. **Integrar Tailwind com tokens**: Configurar `tailwind.config.mjs` para usar as cores do sistema
 2. **Criar componentes reutilizáveis**: Badges, cards, botões usando o sistema de cores
 3. **Documentar padrões**: Criar guia de uso dos componentes
@@ -270,22 +301,26 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ## 3. Pontos Fortes da Identidade Visual
 
 ### 3.1 Coerência Estrutural
+
 - ✅ Sistema de design tokens bem definido
 - ✅ Tipografia hierárquica clara
 - ✅ Cores com propósito funcional definido
 
 ### 3.2 Implementação Técnica
+
 - ✅ Código bem organizado e estruturado
 - ✅ Uso de variáveis CSS para manutenibilidade
 - ✅ Suporte a acessibilidade (reduced motion, focus visible)
 - ✅ Responsividade mobile-first
 
 ### 3.3 Personalidade da Marca
+
 - ✅ Cores vibrantes comunicam energia e festividade
 - ✅ Verde transmite conexão com natureza
 - ✅ Tipografia moderna e jovem
 
 ### 3.4 Estratégia Visual
+
 - ✅ Badge de acessibilidade destacado (alinhado com valores)
 - ✅ Uso contextual de cores por seção
 - ✅ Glassmorphism moderno e elegante
@@ -297,12 +332,14 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 4.1 Inconsistências de Cores
 
 **Problema 1: Variação de cores nos logos**
+
 - Logo principal: `#ff4d2d` (vermelho)
 - Logo colorida: `#fe4f2d` (vermelho diferente)
 - **Impacto**: Pode causar confusão visual
 - **Solução**: Padronizar ou documentar uso
 
 **Problema 2: Cores não integradas no Tailwind**
+
 - Sistema de cores definido em CSS mas não no Tailwind
 - **Impacto**: Desenvolvimento pode usar cores diferentes
 - **Solução**: Integrar cores no `tailwind.config.mjs`
@@ -310,6 +347,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 4.2 Tipografia
 
 **Problema: Fonte decorativa não utilizada**
+
 - Superbusy Activity disponível mas sem uso definido
 - **Impacto**: Confusão sobre quando usar
 - **Solução**: Decidir uso ou remover
@@ -317,6 +355,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 4.3 Logos
 
 **Problema: Múltiplas versões sem documentação**
+
 - Várias versões de logo sem clareza de quando usar cada uma
 - **Impacto**: Risco de uso inconsistente
 - **Solução**: Documentar guia de uso de logos
@@ -324,6 +363,7 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 4.4 Elementos Gráficos
 
 **Problema: PNGs não otimizados**
+
 - Muitos arquivos PNG que poderiam ser SVG ou WebP
 - **Impacto**: Performance e escalabilidade
 - **Solução**: Auditoria e otimização
@@ -388,15 +428,18 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 6.1 Consolidação da Identidade Visual
 
 **Cores Primárias Oficiais:**
+
 - Vermelho: `#ff4d2d` (padronizar em todos os logos)
 - Laranja: `#ff9d28`
 - Índigo: `#1e1876`
 
 **Cores Secundárias:**
+
 - Verde: `#006a47` (criar versão clara para fundos escuros)
 - Teal: `#007b9a` (avaliar necessidade de uso)
 
 **Neutras:**
+
 - Creme: `#fefbdf` (background principal)
 - Branco: `#ffffff`
 - Preto: `#000000`
@@ -404,17 +447,20 @@ Baseado no contexto do evento (festival de música, reggae, rap, natureza):
 ### 6.2 Guia de Uso por Contexto
 
 **Logos:**
+
 - **Logo completo** (`logo-stl.svg`): Hero section, headers grandes, impressão
 - **Logo simplificado**: Mobile, ícones pequenos
 - **Logo colorida**: Usar apenas se houver necessidade específica (documentar)
 - **Favicon**: ⚠️ **TEMPORÁRIO** - Aguardar decisão do favicon definitivo
 
 **Tipografia:**
+
 - **Jairo**: Headlines (h1-h3), CTAs, elementos de destaque
 - **Inter**: Corpo de texto, navegação, labels
 - **Superbusy Activity**: Decisão pendente (usar em badges decorativos ou remover)
 
 **Cores por Seção:**
+
 - **Hero**: Translúcido/glassmorphism
 - **Sobre**: Verde profundo (`#006a47`) com acento laranja
 - **Lineup**: Laranja (`#ff9d28`) com acento índigo

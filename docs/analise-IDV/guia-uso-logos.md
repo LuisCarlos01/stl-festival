@@ -13,6 +13,7 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 **Cores**: Múltiplas (vermelho `#ff4d2d`, laranja `#ff9d28`, índigo `#1e1876`, verde `#006a47`, creme `#fefbdf`)
 
 **Quando usar:**
+
 - ✅ Hero section (tamanhos grandes)
 - ✅ Headers principais
 - ✅ Impressão e materiais físicos
@@ -20,6 +21,7 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 - ✅ Tamanhos acima de 64px
 
 **Quando NÃO usar:**
+
 - ❌ Tamanhos muito pequenos (< 32px)
 - ❌ Favicon (usar versão simplificada)
 - ❌ Ícones de navegação mobile
@@ -35,11 +37,13 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 **Status**: ⚠️ **USO NÃO RECOMENDADO**
 
 **Observações:**
+
 - Cores ligeiramente diferentes do sistema de design (`#fe4f2d` vs `#ff4d2d`)
 - Pode causar inconsistência visual
 - Uso não documentado
 
-**Recomendação**: 
+**Recomendação**:
+
 - Usar apenas se houver necessidade específica aprovada
 - Padronizar cores antes de usar em produção
 - Documentar caso de uso específico
@@ -52,11 +56,13 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 **Status**: ⚠️ **TEMPORÁRIO**
 
 **Observações:**
+
 - Favicon atual é temporário
 - Aguardar decisão do favicon definitivo
 - Suporta dark mode automático
 
 **Quando o favicon definitivo for decidido:**
+
 - Atualizar arquivo `/public/favicon.svg`
 - Garantir legibilidade em tamanhos pequenos (16x16px, 32x32px)
 - Testar em diferentes navegadores
@@ -69,11 +75,13 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 ### 2.1 Tamanhos Mínimos e Máximos
 
 **Logo Principal:**
+
 - **Mínimo recomendado**: 64px (altura)
 - **Máximo**: Sem limite (SVG escalável)
 - **Ideal para Hero**: 128px - 256px
 
 **Favicon:**
+
 - **16x16px**: Navegadores desktop
 - **32x32px**: Navegadores desktop (alta resolução)
 - **180x180px**: Apple touch icon (iOS)
@@ -81,10 +89,12 @@ Este documento define como e quando usar cada versão do logo do STL Festival.
 ### 2.2 Espaçamento
 
 **Zona de Proteção:**
+
 - Manter espaço livre equivalente a 20% da altura do logo ao redor
 - Não colocar texto ou elementos muito próximos
 
 **Exemplo:**
+
 ```
 Logo de 100px de altura → 20px de espaço livre mínimo
 ```
@@ -92,14 +102,17 @@ Logo de 100px de altura → 20px de espaço livre mínimo
 ### 2.3 Contraste e Legibilidade
 
 **Fundos Claros (Creme, Branco):**
+
 - ✅ Logo principal funciona bem
 - ✅ Cores originais mantidas
 
 **Fundos Escuros (Índigo, Preto):**
+
 - ✅ Logo principal funciona bem
 - ⚠️ Considerar versão com cores ajustadas se necessário
 
 **Fundos Coloridos:**
+
 - ⚠️ Testar contraste antes de usar
 - Garantir legibilidade de todos os elementos
 
@@ -110,6 +123,7 @@ Logo de 100px de altura → 20px de espaço livre mínimo
 ### 3.1 HTML/JSX
 
 **Logo no Hero:**
+
 ```html
 <img
   src="/logo/logo-stl.svg"
@@ -123,6 +137,7 @@ Logo de 100px de altura → 20px de espaço livre mínimo
 ```
 
 **Logo em Header:**
+
 ```html
 <a href="/" aria-label="Voltar ao início">
   <img
@@ -136,6 +151,7 @@ Logo de 100px de altura → 20px de espaço livre mínimo
 ```
 
 **Favicon (temporário):**
+
 ```html
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 ```
@@ -153,11 +169,7 @@ interface Props {
   class?: string
 }
 
-const {
-  size = 'md',
-  variant = 'default',
-  class: className = '',
-} = Astro.props
+const { size = 'md', variant = 'default', class: className = '' } = Astro.props
 
 const sizeClasses = {
   sm: 'h-8 w-8',
@@ -166,9 +178,7 @@ const sizeClasses = {
   xl: 'h-24 w-24',
 }
 
-const logoPath = variant === 'colorida' 
-  ? '/logo/logo-colorida.svg' 
-  : '/logo/logo-stl.svg'
+const logoPath = variant === 'colorida' ? '/logo/logo-colorida.svg' : '/logo/logo-stl.svg'
 ---
 
 <img
@@ -183,6 +193,7 @@ const logoPath = variant === 'colorida'
 ```
 
 **Uso:**
+
 ```astro
 <Logo size="lg" />
 <Logo size="md" variant="colorida" />
@@ -200,11 +211,7 @@ const logoPath = variant === 'colorida'
 
 ```html
 <div class="hero-logo fixed left-4 top-4 z-20">
-  <img
-    src="/logo/logo-stl.svg"
-    alt="STL Festival Logo"
-    class="h-16 w-16 md:h-20 md:w-20"
-  />
+  <img src="/logo/logo-stl.svg" alt="STL Festival Logo" class="h-16 w-16 md:h-20 md:w-20" />
 </div>
 ```
 
@@ -217,11 +224,7 @@ const logoPath = variant === 'colorida'
 ```html
 <header class="bg-white">
   <a href="/">
-    <img
-      src="/logo/logo-stl.svg"
-      alt="STL Festival"
-      class="h-12 w-12"
-    />
+    <img src="/logo/logo-stl.svg" alt="STL Festival" class="h-12 w-12" />
   </a>
 </header>
 ```
@@ -234,11 +237,7 @@ const logoPath = variant === 'colorida'
 
 ```html
 <footer class="bg-bg-dark">
-  <img
-    src="/logo/logo-stl.svg"
-    alt="STL Festival"
-    class="h-10 w-10 mx-auto"
-  />
+  <img src="/logo/logo-stl.svg" alt="STL Festival" class="mx-auto h-10 w-10" />
 </footer>
 ```
 
@@ -256,12 +255,14 @@ const logoPath = variant === 'colorida'
 
 **Necessidade**: Para uso em tamanhos pequenos  
 **Características**:
+
 - Versão simplificada do logo principal
 - Menos detalhes
 - Mantém identidade visual
 - Legível em 16px - 32px
 
 **Quando criar:**
+
 - Quando houver necessidade de favicon definitivo
 - Para uso em mobile navigation
 - Para ícones de app
@@ -270,11 +271,13 @@ const logoPath = variant === 'colorida'
 
 **Necessidade**: Para uso em fundos coloridos ou impressão  
 **Características**:
+
 - Versão em uma cor só
 - Branco para fundos escuros
 - Preto para fundos claros
 
 **Quando criar:**
+
 - Impressão em uma cor
 - Fundos muito coloridos
 - Necessidade de contraste específico
@@ -283,11 +286,13 @@ const logoPath = variant === 'colorida'
 
 **Necessidade**: Para espaços horizontais  
 **Características**:
+
 - Logo + texto "STL Festival" lado a lado
 - Proporção horizontal
 - Versão compacta
 
 **Quando criar:**
+
 - Headers com espaço horizontal limitado
 - Assinaturas de email
 - Materiais impressos horizontais
@@ -314,7 +319,8 @@ Antes de usar qualquer logo, verificar:
 
 **Problema**: Logo colorida usa cores diferentes (`#fe4f2d` vs `#ff4d2d`)
 
-**Solução**: 
+**Solução**:
+
 - Padronizar cores antes de usar em produção
 - Ou documentar caso de uso específico
 
@@ -322,7 +328,8 @@ Antes de usar qualquer logo, verificar:
 
 **Problema**: Favicon atual é temporário
 
-**Solução**: 
+**Solução**:
+
 - Aguardar decisão do favicon definitivo
 - Criar versão simplificada quando decidido
 
@@ -330,7 +337,8 @@ Antes de usar qualquer logo, verificar:
 
 **Problema**: Logo principal muito detalhado para tamanhos pequenos
 
-**Solução**: 
+**Solução**:
+
 - Criar versão simplificada
 - Usar apenas em tamanhos adequados (> 64px)
 

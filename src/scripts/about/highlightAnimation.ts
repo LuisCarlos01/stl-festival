@@ -77,6 +77,10 @@ export function setupHighlightAnimation(): void {
       return
     }
 
+    // Detectar se é mobile
+    const isMobile = window.innerWidth < 768
+    console.log('[Highlight] É mobile:', isMobile)
+
     // Configurar IntersectionObserver
     console.log('[Highlight] Configurando IntersectionObserver')
     const observer = new IntersectionObserver(
@@ -98,22 +102,22 @@ export function setupHighlightAnimation(): void {
         })
       },
       {
-        threshold: 0.1,
-        rootMargin: '0px',
+        threshold: isMobile ? 0.05 : 0.1, // Threshold menor em mobile
+        rootMargin: isMobile ? '100px 0px' : '50px 0px', // Maior margem em mobile
       }
     )
 
     observer.observe(aboutSection)
     console.log('[Highlight] Observer configurado e observando seção')
 
-    // Fallback após 5 segundos
+    // Fallback após 3 segundos (reduzido para mobile)
     setTimeout(() => {
       if (checkVisibility()) {
         console.log('[Highlight] Fallback: aplicando animação após timeout')
         applyAnimation(highlights)
         observer.disconnect()
       }
-    }, 5000)
+    }, 3000)
   }
 
   // Aguardar DOM estar pronto
