@@ -5,14 +5,14 @@
  */
 
 const artists = [
-  { id: 1, name: 'Edson Gomes', image: '/images/lineup/artists/artist-1.png' },
+  { id: 1, name: 'Edson Gomes', image: '/images/lineup/artists/edsongomes.png' },
   { id: 2, name: 'Marcelo D2', image: '/images/lineup/artists/artist-2.png' },
   { id: 3, name: 'Matuê', image: '/images/lineup/artists/artist-3.png' },
   { id: 4, name: 'Marcelo Falcão', image: '/images/lineup/artists/artist-4.png' },
   { id: 5, name: 'Planta e Raiz + Mato Seco', image: '/images/lineup/artists/artist-5.png' },
   { id: 6, name: 'Rael + Cynthia Luz', image: '/images/lineup/artists/artist-6.png' },
   { id: 7, name: 'Cidade Negra + Negra Li', image: '/images/lineup/artists/artist-7.png' },
-  { id: 8, name: 'Djonga', image: '/images/lineup/artists/artist-8.png' },
+  { id: 8, name: 'Djonga', video: '/videos/djonga.mp4' },
 ]
 
 const phoneImage = '/images/lineup.png'
@@ -50,17 +50,30 @@ const videoUrl = '/videos/lineup-celular.mp4'
             </video>
           </div>
 
-          <!-- Imagens dos artistas (flutuantes) -->
+          <!-- Imagens e vídeos dos artistas (flutuantes) -->
           {
             artists.map(artist => (
               <div class="floating-content artist-content" data-artist-id={artist.id}>
-                <img
-                  src={artist.image}
-                  alt={artist.name}
-                  class="lineup-artist-image"
-                  loading="lazy"
-                  decoding="async"
-                />
+                {artist.video ? (
+                  <video
+                    class="lineup-artist-video"
+                    loop
+                    muted
+                    playsinline
+                    preload="metadata"
+                    data-artist-video={artist.id}
+                  >
+                    <source src={artist.video} type="video/mp4" />
+                  </video>
+                ) : (
+                  <img
+                    src={artist.image}
+                    alt={artist.name}
+                    class="lineup-artist-image"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                )}
               </div>
             ))
           }
@@ -126,6 +139,12 @@ const videoUrl = '/videos/lineup-celular.mp4'
     margin-bottom: -8vh;
   }
 
+  @media (min-width: 1024px) {
+    .lineup-section {
+      margin-bottom: 0;
+    }
+  }
+
   .lineup-container {
     width: 100%;
     max-width: 1400px;
@@ -176,7 +195,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
 
   @media (min-width: 1024px) {
     .lineup-phone-frame {
-      width: min(40vw, 480px);
+      width: min(45vw, 550px);
     }
   }
 
@@ -193,10 +212,10 @@ const videoUrl = '/videos/lineup-celular.mp4'
   /* Container da tela do celular (onde fica o conteúdo) */
   .phone-screen {
     position: absolute;
-    top: 14%;
+    top: 6%;
     left: 27%;
     width: 46%;
-    height: 64%;
+    height: 85%;
     z-index: 5;
     overflow: hidden;
     border-radius: 1.5rem;
@@ -231,7 +250,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
     z-index: 1;
     opacity: 1;
     transition: opacity 0.6s ease-in-out;
-    padding: 2% 5% 2% 5%;
+    padding: 0% 5% 2% 5%;
   }
 
   .video-content.paused {
@@ -243,7 +262,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
     width: 100%;
     height: 100%;
     object-fit: contain;
-    object-position: center 40%;
+    object-position: center 30%;
     display: block;
     background-color: transparent;
   }
@@ -254,6 +273,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
     opacity: 0;
     transition: opacity 0.6s ease-in-out;
     pointer-events: none;
+    padding: 0% 5% 2% 5%;
   }
 
   .artist-content.active {
@@ -261,6 +281,15 @@ const videoUrl = '/videos/lineup-celular.mp4'
   }
 
   .lineup-artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    background-color: #000;
+  }
+
+  .lineup-artist-video {
     width: 100%;
     height: 100%;
     object-fit: contain;
