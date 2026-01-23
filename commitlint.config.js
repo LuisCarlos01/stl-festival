@@ -25,6 +25,7 @@ export default {
         'about', // Seção About
         'header', // Header/Navegação
         'preloader', // Componente Preloader
+        'lineup', // Seção LineUp
         'deps', // Dependências
         'config', // Configurações
         'ci', // CI/CD

@@ -1,0 +1,396 @@
+---
+/**
+ * LineUp Section - STL Festival
+ * Seção de line-up com efeito floating aplicado ao conteúdo dentro da tela do celular
+ */
+
+const artists = [
+  { id: 1, name: 'Edson Gomes', image: '/images/lineup/artists/artist-1.png' },
+  { id: 2, name: 'Matuê', image: '/images/lineup/artists/artist-2.png' },
+  { id: 3, name: 'Marcelo D2', image: '/images/lineup/artists/artist-3.png' },
+  { id: 4, name: 'Marcelo Falcão', image: '/images/lineup/artists/artist-4.png' },
+  { id: 5, name: 'Djonga', image: '/images/lineup/artists/artist-5.png' },
+  { id: 6, name: 'Planta e Mato', image: '/images/lineup/artists/artist-6.png' },
+  { id: 7, name: 'Cidade Negra + Negra Li', image: '/images/lineup/artists/artist-7.png' },
+  { id: 8, name: 'Rael + Cynthia Luz', image: '/images/lineup/artists/artist-8.png' },
+]
+
+const phoneImage = '/images/lineup.png'
+const videoUrl = '/videos/lineup-celular.mp4'
+---
+
+<section id="lineup" class="lineup-section">
+  <div class="lineup-container">
+    <!-- Coluna: Celular com Conteúdo Flutuante -->
+    <div class="lineup-phone-wrapper">
+      <div class="lineup-phone-frame">
+        <!-- Imagem do mockup do celular (estática) -->
+        <img
+          src={phoneImage}
+          alt="Smartphone mostrando lineup do festival"
+          class="phone-mockup"
+          loading="eager"
+          decoding="async"
+        />
+
+        <!-- Container da tela do celular (onde fica o conteúdo flutuante) -->
+        <div class="phone-screen">
+          <!-- Vídeo flutuante -->
+          <div class="floating-content video-content">
+            <video
+              id="lineup-video"
+              class="lineup-video"
+              loop
+              muted
+              playsinline
+              preload="metadata"
+              aria-hidden="true"
+            >
+              <source src={videoUrl} type="video/mp4" />
+            </video>
+          </div>
+
+          <!-- Imagens dos artistas (flutuantes) -->
+          {
+            artists.map(artist => (
+              <div class="floating-content artist-content" data-artist-id={artist.id}>
+                <img
+                  src={artist.image}
+                  alt={artist.name}
+                  class="lineup-artist-image"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna: Lista de Artistas -->
+    <div class="lineup-artists-wrapper">
+      <h2 class="lineup-title">Line-up</h2>
+      <ul class="lineup-artists-list">
+        {
+          artists.map(artist => (
+            <li class="lineup-artist-item">
+              <button
+                type="button"
+                data-artist-id={artist.id}
+                class="artist-name"
+                aria-label={`Ver ${artist.name}`}
+              >
+                {artist.name}
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { setupLineupInteraction } from '../../scripts/lineup/lineupInteraction'
+
+  // Aguardar DOM estar pronto
+  if (typeof window !== 'undefined') {
+    const initLineup = () => {
+      // Animações desabilitadas por enquanto
+      // Apenas configurar interatividade (vídeo e troca de artistas)
+      setTimeout(setupLineupInteraction, 100)
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLineup)
+    } else {
+      initLineup()
+    }
+  }
+</script>
+
+<style>
+  /* ============================================
+     SEÇÃO LINEUP
+     ============================================ */
+  .lineup-section {
+    position: relative;
+    min-height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+  }
+
+  .lineup-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    .lineup-container {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+      padding: 0 var(--space-8);
+    }
+  }
+
+  /* ============================================
+     CELULAR MOCKUP + TELA
+     ============================================ */
+  .lineup-phone-wrapper {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .lineup-phone-frame {
+    position: relative;
+    width: min(85vw, 380px);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .lineup-phone-frame {
+      width: min(50vw, 420px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .lineup-phone-frame {
+      width: min(40vw, 480px);
+    }
+  }
+
+  /* Imagem do mockup do celular */
+  .phone-mockup {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* Container da tela do celular (onde fica o conteúdo) */
+  .phone-screen {
+    position: absolute;
+    top: 14%;
+    left: 27%;
+    width: 46%;
+    height: 64%;
+    z-index: 5;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    background-color: #000;
+  }
+
+  @media (min-width: 768px) {
+    .phone-screen {
+      border-radius: 1.7rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .phone-screen {
+      border-radius: 1.9rem;
+    }
+  }
+
+  /* ============================================
+     CONTEÚDO (Vídeo e Imagens)
+     ============================================ */
+  .floating-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Vídeo */
+  .video-content {
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+    padding: 2% 5% 2% 5%;
+  }
+
+  .video-content.paused {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .lineup-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center 40%;
+    display: block;
+    background-color: transparent;
+  }
+
+  /* Imagens dos artistas */
+  .artist-content {
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    pointer-events: none;
+  }
+
+  .artist-content.active {
+    opacity: 1;
+  }
+
+  .lineup-artist-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+    display: block;
+    background-color: #000;
+  }
+
+  /* ============================================
+     LISTA DE ARTISTAS
+     ============================================ */
+  .lineup-artists-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  @media (min-width: 1024px) {
+    .lineup-artists-wrapper {
+      align-items: flex-start;
+      max-width: 600px;
+    }
+  }
+
+  .lineup-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (min-width: 1024px) {
+    .lineup-title {
+      text-align: left;
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  .lineup-artists-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .lineup-artists-list {
+      gap: 1.25rem;
+    }
+  }
+
+  .lineup-artist-item {
+    width: 100%;
+  }
+
+  .artist-name {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    border-radius: 0.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .artist-name {
+      text-align: left;
+      font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+    }
+  }
+
+  .artist-name:hover {
+    color: var(--color-primary-orange);
+    transform: translateX(8px);
+    text-shadow: 0 2px 8px rgba(255, 157, 40, 0.4);
+    background-color: rgba(255, 157, 40, 0.1);
+  }
+
+  .artist-name.active {
+    color: var(--color-primary-orange);
+    font-weight: 600;
+    text-shadow: 0 2px 8px rgba(255, 157, 40, 0.5);
+    background-color: rgba(255, 157, 40, 0.15);
+  }
+
+  .artist-name:focus-visible {
+    outline: 2px solid var(--color-primary-orange);
+    outline-offset: 2px;
+  }
+
+  /* ============================================
+     ACESSIBILIDADE - REDUCED MOTION
+     ============================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .artist-name {
+      transition: none;
+    }
+  }
+
+  /* ============================================
+     RESPONSIVIDADE MOBILE
+     ============================================ */
+  @media (max-width: 767px) {
+    .lineup-section {
+      padding: 3rem 0;
+    }
+
+    .lineup-container {
+      gap: 2.5rem;
+    }
+
+    .lineup-title {
+      margin-bottom: 1.5rem;
+    }
+
+    .lineup-artists-list {
+      gap: 0.875rem;
+    }
+  }
+</style>
