@@ -6,13 +6,13 @@
 
 const artists = [
   { id: 1, name: 'Edson Gomes', image: '/images/lineup/artists/artist-1.png' },
-  { id: 2, name: 'Matuê', image: '/images/lineup/artists/artist-2.png' },
-  { id: 3, name: 'Marcelo D2', image: '/images/lineup/artists/artist-3.png' },
+  { id: 2, name: 'Marcelo D2', image: '/images/lineup/artists/artist-2.png' },
+  { id: 3, name: 'Matuê', image: '/images/lineup/artists/artist-3.png' },
   { id: 4, name: 'Marcelo Falcão', image: '/images/lineup/artists/artist-4.png' },
-  { id: 5, name: 'Djonga', image: '/images/lineup/artists/artist-5.png' },
-  { id: 6, name: 'Planta e Mato', image: '/images/lineup/artists/artist-6.png' },
+  { id: 5, name: 'Planta e Raiz + Mato Seco', image: '/images/lineup/artists/artist-5.png' },
+  { id: 6, name: 'Rael + Cynthia Luz', image: '/images/lineup/artists/artist-6.png' },
   { id: 7, name: 'Cidade Negra + Negra Li', image: '/images/lineup/artists/artist-7.png' },
-  { id: 8, name: 'Rael + Cynthia Luz', image: '/images/lineup/artists/artist-8.png' },
+  { id: 8, name: 'Djonga', image: '/images/lineup/artists/artist-8.png' },
 ]
 
 const phoneImage = '/images/lineup.png'
@@ -134,7 +134,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   @media (min-width: 1024px) {
@@ -153,6 +153,13 @@ const videoUrl = '/videos/lineup-celular.mp4'
   .lineup-phone-wrapper {
     position: relative;
     flex-shrink: 0;
+    order: 2; /* Mobile: celular embaixo */
+  }
+
+  @media (min-width: 1024px) {
+    .lineup-phone-wrapper {
+      order: 0; /* Desktop: ordem natural */
+    }
   }
 
   .lineup-phone-frame {
@@ -273,29 +280,34 @@ const videoUrl = '/videos/lineup-celular.mp4'
     justify-content: center;
     width: 100%;
     max-width: 500px;
+    order: 1; /* Mobile: lista em cima */
   }
 
   @media (min-width: 1024px) {
     .lineup-artists-wrapper {
       align-items: flex-start;
       max-width: 600px;
+      order: 0; /* Desktop: ordem natural */
     }
   }
 
   .lineup-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    color: #ffffff;
+    font-family: 'Superbusy Activity', sans-serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 400;
+    color: #fefbdf; /* Creme */
     text-align: center;
+    margin-top: 0;
     margin-bottom: 2rem;
-    letter-spacing: -0.02em;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.02em;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
   }
 
   @media (min-width: 1024px) {
     .lineup-title {
       text-align: left;
+      margin-top: -6.5rem;
       margin-bottom: 2.5rem;
     }
   }
@@ -325,18 +337,17 @@ const videoUrl = '/videos/lineup-celular.mp4'
     width: 100%;
     background: none;
     border: none;
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-family: var(--font-display); /* Jairo font */
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     font-weight: 400;
-    color: #ffffff;
+    color: #fefbdf; /* Creme */
     text-align: center;
     cursor: pointer;
     padding: 0.75rem 1rem;
-    transition: all 0.3s ease;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
     line-height: 1.4;
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
   }
 
   @media (min-width: 1024px) {
@@ -346,18 +357,9 @@ const videoUrl = '/videos/lineup-celular.mp4'
     }
   }
 
-  .artist-name:hover {
-    color: var(--color-primary-orange);
-    transform: translateX(8px);
-    text-shadow: 0 2px 8px rgba(255, 157, 40, 0.4);
-    background-color: rgba(255, 157, 40, 0.1);
-  }
-
   .artist-name.active {
-    color: var(--color-primary-orange);
-    font-weight: 600;
-    text-shadow: 0 2px 8px rgba(255, 157, 40, 0.5);
-    background-color: rgba(255, 157, 40, 0.15);
+    background-color: #ff4d2d; /* Laranja - efeito marca texto */
+    color: #fefbdf; /* Mantém creme */
   }
 
   .artist-name:focus-visible {
@@ -379,8 +381,8 @@ const videoUrl = '/videos/lineup-celular.mp4'
      ============================================ */
   @media (max-width: 767px) {
     .lineup-section {
-      padding: 3rem 0 0 0;
-      margin-bottom: -4vh;
+      padding: 3rem 0 0rem 0;
+      margin-bottom: 0;
     }
 
     .lineup-container {
@@ -388,7 +390,7 @@ const videoUrl = '/videos/lineup-celular.mp4'
     }
 
     .lineup-title {
-      margin-bottom: 1.5rem;
+      margin-bottom: 0.5rem;
     }
 
     .lineup-artists-list {
