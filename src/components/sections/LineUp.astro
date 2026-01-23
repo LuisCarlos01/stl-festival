@@ -118,11 +118,12 @@ const videoUrl = '/videos/lineup-celular.mp4'
     position: relative;
     min-height: 100vh;
     background-color: #000000;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 0;
+    padding: 4rem 0 0 0;
+    margin-bottom: -8vh;
   }
 
   .lineup-container {
@@ -378,7 +379,8 @@ const videoUrl = '/videos/lineup-celular.mp4'
      ============================================ */
   @media (max-width: 767px) {
     .lineup-section {
-      padding: 3rem 0;
+      padding: 3rem 0 0 0;
+      margin-bottom: -4vh;
     }
 
     .lineup-container {
